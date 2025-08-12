@@ -48,7 +48,7 @@ def create_database():
         )
         """
     )
-   # MILITARY CARD TABLE
+    # MILITARY CARD TABLE
     cursor.execute(
         """
         CREATE TABLE IF NOT EXISTS military_cards(
@@ -93,12 +93,12 @@ def create_database():
         """
     )
 
-    #job history table
+    # job history table
     cursor.execute(
         """
         CREATE TABLE IF NOT EXISTS jobs (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            person_id TEXT NOT NULL,
+            person_id REFERENCES persons,
             organisation TEXT NOT NULL,
             job_title TEXT NOT NULL,
             start_date integer,
@@ -108,6 +108,51 @@ def create_database():
         """
     )
 
+    # marriage table
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS marriages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            person_id REFERENCES persons,
+            name TEXT,
+            family TEXT,
+            marriage_date INTEGER,
+            is_alive TEXT,
+            childs TEXT
+        )   
+        """
+    )
+
+    # child_table
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS childes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        person_id REFERENCES persons,
+        name TEXT,
+        family TEXT,
+        birth_date TEXT,
+        is_alive INTEGER ,
+        status INTEGER 
+        )
+        """
+
+    )
+
+    # medical table
+    cursor.execute(
+        """
+        create table if not exists medicals (
+        id integer PRIMARY KEY AUTOINCREMENT,
+        person_id REFERENCES persons,
+        disease text not null,
+        medicine text not null,
+        doctor text,
+        visit_date integer not null,
+        status  text not null 
+        )
+        """
+    )
 
     cursor.close()
     connection.close()
