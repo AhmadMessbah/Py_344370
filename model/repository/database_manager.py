@@ -1,28 +1,21 @@
 import sqlite3
 
 
-def transaction_manager(sql_command, parameter_list, commit=False):
+def transaction_manager(sql_command, parameter_list=None, commit=False):
     connection = sqlite3.connect('./model/repository/class_project.db')
     cursor = connection.cursor()
-    cursor.execute(sql_command, parameter_list)
+    if parameter_list:
+        cursor.execute(sql_command, parameter_list)
+    else:
+        cursor.execute(sql_command)
     if commit:
         connection.commit()
+        result_list = parameter_list
+    else:
+        result_list = cursor.fetchall()
     cursor.close()
     connection.close()
-
-    # Education
-    """
-    create table if not exists education (
-    id integer PRIMARY KEY AUTOINCREMENT,
-    person_id integer ,
-    university text not null,
-    grade text not null,
-    average integer,
-    start_date text not null,
-    end_date   text not null 
-    )
-    
-    """
+    return result_list
 
 
 def create_database():
@@ -55,18 +48,47 @@ def create_database():
         )
         """
     )
+   # MILITARY CARD TABLE
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS military_card(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        person_id REFERENCES PERSONS,
+        card_serial TEXT,
+        licence_type TEXT,
+        city TEXT,
+        organisation TEXT,
+        duration TEXT
+        )
+        """
+    )
 
-    # Education
+    # Education table
     cursor.execute(
         """
         create table if not exists education (
         id integer PRIMARY KEY AUTOINCREMENT,
-        person_id references PERSONS ,
+        person_id REFERENCES PERSONS ,
         university text not null,
         grade text not null,
         average integer,
         start_date text not null,
         end_date   text not null 
+        )
+        """
+    )
+
+    # Salary table
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS salary
+        (
+            id               INTEGER PRIMARY KEY AUTOINCREMENT,
+            person_id        REFERENCES PERSONS ,
+            weekly_hours     INTEGER,
+            pay_for_hours    INTEGER,
+            end_date         INTEGER,
+            employment_type text
         )
         """
     )
