@@ -56,7 +56,7 @@ def create_database():
         """
     )
 
-    # Education
+    # Education table
     cursor.execute(
         """
         create table if not exists education (
@@ -67,6 +67,21 @@ def create_database():
         average integer,
         start_date text not null,
         end_date   text not null 
+        )
+        """
+    )
+
+    # Salary table
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS salary
+        (
+            id               INTEGER PRIMARY KEY AUTOINCREMENT,
+            person_id        INTEGER,
+            weekly_hours     INTEGER,
+            pay_for_hours    INTEGER,
+            end_date         INTEGER,
+            employment_type text
         )
         """
     )
