@@ -126,7 +126,7 @@ def create_database():
     #child_table
     cursor.execute(
         """
-        CREATE TABLE IF NOT EXISTS child (
+        CREATE TABLE IF NOT EXISTS childs (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         person_id INTEGER,
         name TEXT,
