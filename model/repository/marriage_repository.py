@@ -1,22 +1,28 @@
 from model.repository.database_manager import transaction_manager
 
 
-
-def save(name,family,marriage_dae,person_id,is_alive,childs):
+def save(person_id, name, family, marriage_date, is_alive, childes):
     return transaction_manager(
-        "insert into persons (name,family,marriage_dae,person_id,is_alive,childs) values (?,?,?)",
-        [name,family,marriage_dae,person_id,is_alive,childs],
+        "insert into marriages (person_id, name, family, marriage_date, is_alive, childs) values (?,?,?,?,?,?)",
+        [person_id, name, family, marriage_date, is_alive, childes],
         commit=True
     )
 
-def edit():
-    return transaction_manager(
-        insert into persons (name,family,marriage_dae,person_id,is_alive,childs)
 
+def edit(id, person_id, name, family, marriage_date, is_alive, childes):
+    return transaction_manager(
+        "",
+        [person_id, name, family, marriage_date, is_alive, childes, id],
+        commit=True
     )
 
-def remove():
-    pass
+
+def remove(id):
+    return transaction_manager(
+        "",
+        [id],
+        commit=True
+    )
 
 def find_all():
     pass
