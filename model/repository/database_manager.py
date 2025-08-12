@@ -1,7 +1,7 @@
 import sqlite3
 
 
-def transaction_manager(sql_command, parameter_list, commit=False):
+def transaction_manager(sql_command, parameter_list=None, commit=False):
     connection = sqlite3.connect('./model/repository/class_project.db')
     cursor = connection.cursor()
     if parameter_list:
