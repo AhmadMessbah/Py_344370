@@ -108,6 +108,21 @@ def create_database():
         """
     )
 
+    # marriage table
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS marriages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            person_id references persons,
+            name TEXT,
+            family TEXT,
+            marriage_date INTEGER,
+            is_alive TEXT,
+            childs TEXT
+        )   
+        """
+    )
+
 
     cursor.close()
     connection.close()
