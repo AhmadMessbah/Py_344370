@@ -26,5 +26,7 @@ def create_database():
         """
     )
 
+
+
     cursor.close()
     connection.close()

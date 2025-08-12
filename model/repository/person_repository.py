@@ -3,7 +3,7 @@ from model.repository.database_manager import transaction_manager
 
 
 def save(name,family,age):
-    transaction_manager(
+    return transaction_manager(
         "insert into persons (name,family,age) values (?,?,?)",
         [name,family,age],
         commit=True
