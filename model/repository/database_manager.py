@@ -47,7 +47,7 @@ def create_database():
         """
         create table if not exists education (
         id integer PRIMARY KEY AUTOINCREMENT,
-        person_id references PERSONS ,
+        person_id REFERENCES PERSONS ,
         university text not null,
         grade text not null,
         average integer,
@@ -63,7 +63,7 @@ def create_database():
         CREATE TABLE IF NOT EXISTS salary
         (
             id               INTEGER PRIMARY KEY AUTOINCREMENT,
-            person_id        INTEGER,
+            person_id        REFERENCES PERSONS ,
             weekly_hours     INTEGER,
             pay_for_hours    INTEGER,
             end_date         INTEGER,
