@@ -6,4 +6,5 @@ print("Database Created")
 
 
 # Test
-import test.person_test
+# import test.person_test
+# import test.salary_test
