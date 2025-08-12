@@ -7,8 +7,12 @@ def transaction_manager(sql_command, parameter_list, commit=False):
     cursor.execute(sql_command, parameter_list)
     if commit:
         connection.commit()
+        result_list = parameter_list
+    else:
+        result_list = cursor.fetchall()
     cursor.close()
     connection.close()
+    return result_list
 
 
 def create_database():
