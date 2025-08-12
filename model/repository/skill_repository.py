@@ -2,7 +2,7 @@ from model.repository.database_manager import transaction_manager
 
 
 
-def save(name,family,age):
+def save(person_id,title,institute,duration,register_date,score):
     return transaction_manager(
         "insert into skill (person_id,title,institute,duration,register_date,score) values (?,?,?,?,?,?)",
         [person_id,title,institute,duration,register_date,score],
@@ -11,9 +11,9 @@ def save(name,family,age):
 
 def edit():
     pass
-    # return transaction_manager(
-    #     "update skill set id=?,person_id=?,title=?,institute=?,duration=?,register_date=?,score=?",
-    #     [person_id, title, institute, duration, register_date, score,id],
+    #     # return transaction_manager(
+    #     #     "update skill set id=?,person_id=?,title=?,institute=?,duration=?,register_date=?,score=?",
+    #     #     [person_id, title, institute, duration, register_date, score,id],
     #     commit=True
     # )
 
