@@ -123,6 +123,22 @@ def create_database():
         """
     )
 
+    #child_table
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS child (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        person_id INTEGER,
+        name TEXT,
+        family TEXT,
+        birth_date TEXT,
+        is_alive INTEGER ,
+        stauts INTEGER 
+        )
+        """
+
+    )
+
 
     cursor.close()
     connection.close()
