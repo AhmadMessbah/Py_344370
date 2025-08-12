@@ -4,7 +4,10 @@ import sqlite3
 def transaction_manager(sql_command, parameter_list, commit=False):
     connection = sqlite3.connect('./model/repository/class_project.db')
     cursor = connection.cursor()
-    cursor.execute(sql_command, parameter_list)
+    if parameter_list:
+        cursor.execute(sql_command, parameter_list)
+    else:
+        cursor.execute(sql_command)
     if commit:
         connection.commit()
         result_list = parameter_list
