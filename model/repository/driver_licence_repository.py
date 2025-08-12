@@ -23,6 +23,7 @@ def find_all():
     license_list = transaction_manager("select * from driver_licences")
     return license_list
 
+
 def find_by_id(id):
     person_id = transaction_manager("select * from driver_licences where id=?",[id])
     return person_id
