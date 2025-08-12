@@ -41,6 +41,20 @@ def create_database():
         )
         """
     )
+   # MILITARY CARD TABLE
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS military_card(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        person_id REFERENCES PERSONS,
+        card_serial TEXT,
+        licence_type TEXT,
+        city TEXT,
+        organisation TEXT,
+        duration TEXT
+        )
+        """
+    )
 
     cursor.close()
     connection.close()
