@@ -98,7 +98,7 @@ def create_database():
         """
         CREATE TABLE IF NOT EXISTS jobs (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            person_id TEXT NOT NULL,
+            person_id REFERENCES persons,
             organisation TEXT NOT NULL,
             job_title TEXT NOT NULL,
             start_date integer,
@@ -113,7 +113,7 @@ def create_database():
         """
         CREATE TABLE IF NOT EXISTS marriages (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            person_id references persons,
+            person_id REFERENCES persons,
             name TEXT,
             family TEXT,
             marriage_date INTEGER,
@@ -126,25 +126,25 @@ def create_database():
     # child_table
     cursor.execute(
         """
-        CREATE TABLE IF NOT EXISTS childs (
+        CREATE TABLE IF NOT EXISTS childes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        person_id INTEGER,
+        person_id REFERENCES persons,
         name TEXT,
         family TEXT,
         birth_date TEXT,
         is_alive INTEGER ,
-        stauts INTEGER 
+        status INTEGER 
         )
         """
 
     )
 
+    # medical table
     cursor.execute(
-        # medical
         """
         create table if not exists medicals (
         id integer PRIMARY KEY AUTOINCREMENT,
-        person_id integer ,
+        person_id REFERENCES persons,
         disease text not null,
         medicine text not null,
         doctor text,
