@@ -10,20 +10,6 @@ def transaction_manager(sql_command, parameter_list, commit=False):
     cursor.close()
     connection.close()
 
-    # Education
-    """
-    create table if not exists education (
-    id integer PRIMARY KEY AUTOINCREMENT,
-    person_id integer ,
-    university text not null,
-    grade text not null,
-    average integer,
-    start_date text not null,
-    end_date   text not null 
-    )
-    
-    """
-
 
 def create_database():
     connection = sqlite3.connect('./model/repository/class_project.db')
