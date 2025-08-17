@@ -101,8 +101,8 @@ def create_database():
             person_id REFERENCES persons,
             organisation TEXT NOT NULL,
             job_title TEXT NOT NULL,
-            start_date integer,
-            end_date integer,
+            start_date TEXT,
+            end_date TEXT,
             description TEXT
         )
         """
