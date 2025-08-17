@@ -37,8 +37,8 @@ window.resizable(False, False)
 
 #id
 default_id=IntVar()
-Label(window, text="Id").grid(row=0, column=0)
-Entry(window, textvariable=default_id).grid(row=1, column=0)
+Label(window, text="Id").place(x=20, y=20)
+Entry(window, textvariable=default_id).place(x=60, y=20)
 
 #person_id
 person_id=IntVar()
