@@ -16,4 +16,8 @@
 
     - faraj nezhad : salary (id, person_id, weekly_hour, pay_per_hour, start_date, end_date, employement_type)
 
+    - banaii : lesson (id, person_id, title, code, teacher, unit, class_number)
+
+    - sarmadi rad : payment (id, person_id, title, amount, pay_date, payment_type, description)
+
     
