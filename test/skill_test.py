@@ -1,13 +1,20 @@
-from model.repository.skill_repository import *
+# test passed
+# from model.repository.skill_repository import *
 
 # test passed
-# save(102,"project managemant","Global Enterprises","3 years","2022-08-20",15)
+# from model.service.skill_service import *
 
 # test passed
-# edit(2,101,"graphic design","Creative Studio","1 years","2022-05-20",15)
+from controller.skill_controller import *
 
 # test passed
-# remove(2)
+# print(save(104, "project managemant", "Global Enterprises", "3 years", "2022-08-20", 19))
+
+# test passed
+# print(edit(1, 101, "graphic design", "Creative Studio", "4 years", "2020-05-20", 15))
+
+# test passed
+# print(remove(2))
 
 # test passed
 # print(find_all())
@@ -17,6 +24,3 @@ from model.repository.skill_repository import *
 
 # test passed
 # print(find_by_title_and_institute("g","Creative"))
-
-
-# skill_repository test passed
