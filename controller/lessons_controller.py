@@ -1,12 +1,30 @@
-import re
-from model.service.lessons_service import save_lesson
+from model.service import lessons_service
 
-def save(code,class_number,teacher,units,title):
-    try:
-        if re.match(r"^1[\d]{5}$",code):
-            return save_lesson(code,class_number,teacher,units,title)
-        else:
-            return "error"
-    except Exception as e:
-        return "error{e}"
 
+
+def save(person_id, title, code, teacher, unit, class_number):
+    pass
+
+
+def edit(id, person_id, title, code, teacher, unit, class_number):
+    pass
+
+
+def delete(id):
+    pass
+
+
+def find_all():
+    pass
+
+
+def find_by_id(id):
+    pass
+
+
+def find_by_title(title):
+    pass
+
+
+def find_by_teacher(teacher):
+    pass

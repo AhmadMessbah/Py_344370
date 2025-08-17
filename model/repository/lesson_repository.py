@@ -1,24 +1,43 @@
 from model.repository.database_manager import transaction_manager
 
 
-def save(code,class_number,teacher,units,title):
+def save(person_id, title, code, teacher, unit, class_number):
     return transaction_manager(
         "insert into lessons(code,class_number,teacher,units,title) values(?,?,?,?,?)",
-        [code,class_number,teacher,units,title],
+        [person_id, title, code, teacher, unit, class_number],
         commit=True
 
     )
 
-def edit(code,class_number,teacher,units,title):
+
+def edit(id, person_id, title, code, teacher, unit, class_number):
     return transaction_manager(
         "",
-        [code,class_number,teacher,units,title],
+        [person_id, title, code, teacher, unit, class_number, id],
         commit=True
     )
-def remove(code,class_number,teacher,units,title):
+
+
+def delete(id):
     return transaction_manager(
         "",
-        [code]
+        [id]
         ,
         commit=True
     )
+
+
+def find_all():
+    pass
+
+
+def find_by_id(id):
+    pass
+
+
+def find_by_title(title):
+    pass
+
+
+def find_by_teacher(teacher):
+    pass
