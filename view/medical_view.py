@@ -1,7 +1,11 @@
+from tkinter.ttk import Entry, Button
 from _tkinter import *
-from tkinter import ttk, Tk, StringVar,IntVar
+from tkinter import ttk, Tk, StringVar, IntVar, Label
 from model.repository.medical_repository import *
 from model.tools.validation import *
+from view.skill_view import close_window
+
+
 
 
 
@@ -63,19 +67,21 @@ win = Tk()
 # geometry-title
 win.title("Medical")
 win.resizable(width=False, height=False)
-win.geometry("710x360")
+win.geometry("800x360")
 
 
 # 1
 # # id
 id=IntVar()
 Label(win,text="id").place(x=20,y=20)
+# Entry(win, textvariable=id).place(x=100,y=20)
 Entry(win, textvariable=id).place(x=100,y=20)
 
 # person_id
 person_id=IntVar()
 Label(win,text="person_id").place(x=20,y=60)
 Entry(win, textvariable=person_id).place(x=100,y=60)
+# Entry(win, textvariable=person_id).place(x=100,y=60)
 
 # disease
 disease=StringVar()
@@ -102,14 +108,15 @@ Entry(win, textvariable=visit_date).place(x=100,y=220)
 
 # status
 status=StringVar()
-Label(win,text="status").place(x=20,y=260)
-Entry(win, textvariable=status).place(x=100,y=260)
+# Label(win,text="status").place(x=20,y=260)
+Label(win,text="status").place(x=20,y=255)
+Entry(win, textvariable=status).place(x=100,y=255)
 
 
 
 # 2
 # Buttons (Save-Edit-Remove)
-Button(win, text="Clear", command=reset_form, width=29).place(x=20,y=250)
+# Button(win, text="Clear", command=reset_form, width=29).place(x=20,y=250)
 Button(win, text="Save", command=save_click, width=7).place(x=20,y=300)
 Button(win, text="Edit", command=edit_click, width=7).place(x=95,y=300)
 Button(win, text="Remove", command=remove_click, width=7).place(x=170,y=300)
@@ -129,20 +136,20 @@ search_doctor_txt.place(x=325,y=20)
 # Table
 table = ttk.Treeview(win, height=12,columns=(1,2,3,4,5,6,7),show="headings")
 table.column(1, width=70)
-table.column(2, width=100)
-table.column(3, width=100)
-table.column(4, width=80)
-table.column(5, width=80)
-table.column(6, width=80)
-table.column(7, width=80)
+table.column(2, width=70)
+table.column(3, width=70)
+table.column(4, width=70)
+table.column(5, width=70)
+table.column(6, width=70)
+table.column(7, width=70)
 
 table.heading(1, text="ID")
 table.heading(2, text="Person_Id")
 table.heading(3, text="Disease")
 table.heading(4, text="Medicine")
 table.heading(5, text="Doctor")
-table.heading(5, text="Visit_Date")
-table.heading(5, text="Status")
+table.heading(6, text="Visit_Date")
+table.heading(7, text="Status")
 
 # TreeviewSelect
 # bind--> table_select
@@ -151,7 +158,8 @@ table.bind("<<TreeviewSelect>>", table_select)
 table.place(x=250, y = 60)
 
 
-win.protocol("WM_DELETE_WINDOW", close_window)
+# win.protocol("WM_DELETE_WINDOW", close_window)
+
 
 reset_form()
 
