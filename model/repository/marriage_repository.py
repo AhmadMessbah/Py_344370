@@ -26,8 +26,7 @@ def remove(id):
 
 def find_all():
     return transaction_manager(
-        "SELECT * FROM marriages WHERE ID=?",
-        [id]
+        "SELECT * FROM marriages"
     )
 
 def find_by_id(id):
@@ -38,6 +37,6 @@ def find_by_id(id):
 
 def find_by_name_and_family(family,name):
     return transaction_manager(
-        "SELECT * FROM marriages WHERE NAME=? AND FAMILY=?",
-        [family + "%"]
+        "SELECT * FROM marriages WHERE NAME like ? AND FAMILY like ?",
+        [name+"%", family + "%"]
     )
