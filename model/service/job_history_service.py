@@ -1,9 +1,9 @@
 from model.repository import job_history_repository
 
-def save():
+def save(person_id, organisation, job_title, start_date, end_date, description):
     pass
 
-def edit():
+def edit(id, person_id, organisation, job_title, start_date, end_date, description):
     pass
 
 def delete(id):

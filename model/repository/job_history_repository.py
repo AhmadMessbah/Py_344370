@@ -18,7 +18,7 @@ def edit(id, person_id, organisation, job_title, start_date, end_date, descripti
         commit=True
     )
 
-def remove(id):
+def delete(id):
     return transaction_manager(
         "delete from jobs where id=?",
         [id],
