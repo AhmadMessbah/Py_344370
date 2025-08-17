@@ -118,7 +118,7 @@ def create_database():
             family TEXT,
             marriage_date INTEGER,
             is_alive TEXT,
-            childs TEXT
+            childes TEXT
         )   
         """
     )
