@@ -20,7 +20,7 @@ def remove(id):
     return transaction_manager("delete from military_cards where id=?", [id], commit=True)
 
 
-def find_all(id):
+def find_all():
     military_cards = transaction_manager("select * from military_cards")
     return military_cards
 
