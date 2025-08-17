@@ -101,8 +101,8 @@ def create_database():
             person_id REFERENCES persons,
             organisation TEXT NOT NULL,
             job_title TEXT NOT NULL,
-            start_date integer,
-            end_date integer,
+            start_date TEXT,
+            end_date TEXT,
             description TEXT
         )
         """
@@ -118,7 +118,7 @@ def create_database():
             family TEXT,
             marriage_date INTEGER,
             is_alive TEXT,
-            childs TEXT
+            childes TEXT
         )   
         """
     )
@@ -166,6 +166,21 @@ def create_database():
             duration text not null,
             register_date text not null,
             score integer not null
+        )
+        """
+    )
+
+
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS lessons (
+        id integer PRIMARY KEY AUTOINCREMENT,
+        person_id REFERENCES persons,
+        title TEXT NOT NULL,
+        code INTEGER NOT NULL,
+        teacher TEXT NOT NULL,
+        units INTEGER NOT NULL,
+        class_number INTEGER NOT NULL
         )
         """
     )

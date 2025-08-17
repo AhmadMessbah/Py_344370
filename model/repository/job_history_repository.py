@@ -18,10 +18,10 @@ def edit(id, person_id, organisation, job_title, start_date, end_date, descripti
         commit=True
     )
 
-def remove(person_id, organisation, job_title, start_date, end_date, description):
+def delete(id):
     return transaction_manager(
         "delete from jobs where id=?",
-        [person_id, organisation, job_title, start_date, end_date, description],
+        [id],
         commit=True
     )
 
@@ -30,4 +30,8 @@ def find_all():
         "select * from jobs"
     )
 
+def find_by_id(id):
+    pass
 
+def find_by_title(title):
+    pass
