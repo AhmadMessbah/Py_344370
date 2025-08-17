@@ -11,7 +11,7 @@ def save(person_id, name, family, marriage_date, is_alive, childes):
 
 def edit(id, person_id, name, family, marriage_date, is_alive, childes):
     return transaction_manager(
-        "UPDATE marriages SET NAME=?,FAMILY=?,MARRIAGE_DATE=?,IS_ALIVE=?, childes=? WHERE ID=?",
+        "UPDATE marriages SET PERSON_ID=?, NAME=?,FAMILY=?,MARRIAGE_DATE=?,IS_ALIVE=?, childes=? WHERE ID=?",
         [person_id, name, family, marriage_date, is_alive, childes, id],
         commit=True
     )
@@ -26,8 +26,7 @@ def remove(id):
 
 def find_all():
     return transaction_manager(
-        "SELECT * FROM marriages WHERE ID=?",
-        [id]
+        "SELECT * FROM marriages"
     )
 
 def find_by_id(id):
@@ -38,6 +37,6 @@ def find_by_id(id):
 
 def find_by_name_and_family(family,name):
     return transaction_manager(
-        "SELECT * FROM marriages WHERE NAME=? AND FAMILY=?",
-        [family + "%"]
+        "SELECT * FROM marriages WHERE NAME like ? AND FAMILY like ?",
+        [name+"%", family + "%"]
     )
