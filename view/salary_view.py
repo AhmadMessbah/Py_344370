@@ -56,34 +56,34 @@ def remove_check():
 
 
 window = Tk()
-
+# از روی کلاس سیم کارت کپی پیست کردین بله
 window.geometry("680x360")
 window.title("salary")
 window.resizable(False, False)
 
 # person id
 Label(window, text="person id").place(x=20, y=20)
-number = IntVar()
+person_id = IntVar()
 Entry(window, textvariable=person_id).place(x=95, y=20)
 
 # weekly_hours
 Label(window, text="weekly hours").place(x=20, y=60)
-owner = IntVar()
+weekly_hours = IntVar()
 Entry(window, textvariable=weekly_hours).place(x=95, y=60)
 
 # pay_for_hours
 Label(window, text="pay for hours").place(x=20, y=100)
-operator = IntVar()
+pay_for_hours = IntVar()
 Entry(window, textvariable=pay_for_hours).place(x=95, y=100)
 
 # end date
 Label(window, text="end date").place(x=20, y=140)
-charge = StringVar()
+end_date = StringVar()
 Entry(window, textvariable=end_date).place(x=95, y=140)
 
 # employment_type
 Label(window, text="employment_type").place(x=20, y=180)
-register_date = StringVar()
+employment_type = StringVar()
 Entry(window, textvariable=employment_type).place(x=95, y=180)
 
 
