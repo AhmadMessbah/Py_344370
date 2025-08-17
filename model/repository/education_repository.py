@@ -1,16 +1,16 @@
 from model.repository.database_manager import transaction_manager
 
 
-def save(university, grade, average, start_date, end_date):
-    transaction_manager('insert into education (university, grade, average, start_date, end_date) values (?,?,?,?,?)',
-                        [university, grade, average, start_date, end_date],
+def save(person_id, university, grade, average, start_date, end_date):
+    transaction_manager('insert into education (person_id ,university, grade, average, start_date, end_date) values (?,?,?,?,?,?)',
+                        [person_id, university, grade, average, start_date, end_date],
                         commit=True)
 
 
-def edit( university, grade, average, start_date, end_date):
-    transaction_manager('update education set university=?,'
+def edit(id, person_id, university, grade, average, start_date, end_date):
+    transaction_manager('update education set person_id=?, university=?,'
                         ' grade=?, average=?, start_date=?, end_date=? where id=?',
-                        [university, grade, average, start_date, end_date,id],
+                        [person_id, university, grade, average, start_date, end_date,id],
                         commit=True)
 
 
