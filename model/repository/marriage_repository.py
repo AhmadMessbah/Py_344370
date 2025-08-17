@@ -11,7 +11,7 @@ def save(person_id, name, family, marriage_date, is_alive, childes):
 
 def edit(id, person_id, name, family, marriage_date, is_alive, childes):
     return transaction_manager(
-        "UPDATE marriages SET NAME=?,FAMILY=?,MARRIAGE_DATE=?,IS_ALIVE=?, childes=? WHERE ID=?",
+        "UPDATE marriages SET PERSON_ID=?, NAME=?,FAMILY=?,MARRIAGE_DATE=?,IS_ALIVE=?, childes=? WHERE ID=?",
         [person_id, name, family, marriage_date, is_alive, childes, id],
         commit=True
     )
