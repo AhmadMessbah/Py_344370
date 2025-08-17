@@ -5,7 +5,7 @@
 # from model.service.skill_service import *
 
 # test passed
-from controller.skill_controller import *
+# from controller.skill_controller import *
 
 # test passed
 # print(save(104, "project managemant", "Global Enterprises", "3 years", "2022-08-20", 19))
