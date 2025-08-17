@@ -154,5 +154,21 @@ def create_database():
         """
     )
 
+    # Skill table
+    cursor.execute(
+        """
+        create table if not exists skills
+        (
+            id integer PRIMARY KEY AUTOINCREMENT,
+            person_id REFERENCES persons,
+            title text not null,
+            institute text not null,
+            duration text not null,
+            register_date text not null,
+            score integer not null
+        )
+        """
+    )
+
     cursor.close()
     connection.close()
