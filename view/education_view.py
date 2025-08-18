@@ -8,7 +8,7 @@ from controller import education_controller
 # id, person_id, university, grade, average, start_date, end_date
 def reset_form():
     default_id.set(0)
-    person_id.set(0)
+    person_id.set("")
     university.set("")
     average.set(0)
     start_date.set("")
