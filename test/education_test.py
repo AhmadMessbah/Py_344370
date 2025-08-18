@@ -1,5 +1,8 @@
 # from model.repository.education_repository import *
-from model.service import education_service
+# from model.service import education_service
+# from controller import education_controller
+
+#repository/service/controller test passed successfully!
 
 # ---------------------------------------------------------------------------------
 # REPOSITORY
@@ -36,3 +39,21 @@ from model.service import education_service
 
 # test passed
 # print(education_service.find_by_person_id("1254125"))
+
+# ---------------------------------------------------------------------------------
+# CONTROLLER
+
+# test passed
+# education_controller.save('12312','elm o sanat',"bachelor",17,"2017","2021")
+
+# test passed
+# education_controller.edit(7,'1111111','elm o sanat',"masters",17,"2017","2021")
+
+# test passed
+# education_controller.delete(7)
+
+# test passed
+# print(education_controller.find_all())
+
+# test passed
+# print(education_controller.find_by_person_id("123456789"))
