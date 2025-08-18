@@ -1,10 +1,16 @@
 from model.repository.education_repository import *
 
 #test passed
-# save('elmo sanat','bachelor',17,15,"2016","2020")
+# save('2525005','azad ',"bachelor",20,"2017","2021")
 
 #test passed
-# edit(1,'',"elmo sanat university","bachelor",19,"2010","2014")
+# edit(2,'',"elmo sanat university","bachelor",19,"2010","2014")
 
 #test passed
 # remove(1)
+
+#test passed
+# print(find_all())
+
+#test passed
+# print(find_by_person_id("2525005"))
