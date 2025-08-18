@@ -19,7 +19,7 @@ def edit(id, person_id, university, grade, average, start_date, end_date):
 def delete(id):
     student = education_repository.find_by_id(id)
     if student:
-        return education_repository.find_by_id(id)
+        return education_repository.remove(id)
     else:
         raise ValueError("کاربری با این کد پیدا نشد!!")
 
