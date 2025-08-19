@@ -9,7 +9,7 @@ class Person:
         return f"{self.__dict__}"
 
     def to_tuple(self):
-        return (self.id, self.name, self.family, self.age)
+        return tuple((self.id, self.name, self.family, self.age))
 
 
 

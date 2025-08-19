@@ -1,32 +1,30 @@
 from model.repository import medical_repository
 
-def save (person_id,disease,medicine,doctor,visit_date,status):
-    if status == "bad" :
-        raise ValueError("حالتون مساعد نیست")
-    return medical_repository.save(person_id, disease, medicine, doctor, visit_date, status)
 
-def edit():
-    medical = medical_repository.find_by_id(id)
-    if medical:
-        if status == "khob":
-            raise ValueError("درمان بیماری")
+class MedicalService:
+    def __init__(self):
+        self.repo = medical_repository
 
-        return medical_repository.edit(id, person_id, disease, medicine, doctor, visit_date,status)
-    else:
-        raise ValueError("درمان کامل نیست")
 
-def delete(id):
-    medical = medical_repository.find_by_id(id)
-    if medical:
-        return medical_repository.remove(id)
-    else:
-        raise ValueError("فردی با چنین کدی پیدا نشد !!!")
+def save (self,medical):
+    return self.repo.save(medical)
 
-def find_all():
-    return medical_repository.find_all()
 
-def find_by_id():
-    return medical_repository.find_by_id(id)
+def edit(self,medical):
+    return self.repo.edit(medical)
 
-def find_by_name_and_family():
-    pass
+
+def delete(self,id):
+    return self.repo.delete(id)
+
+
+def find_all(self):
+    return self.repo.find_all()
+
+
+def find_by_id(self,id):
+    return self.repo.find_by_id(id)
+
+
+def find_by_name_and_family(self,name,family):
+    return self.repo.find_by_name_and_family(name,family)
