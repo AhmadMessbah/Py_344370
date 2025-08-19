@@ -6,19 +6,19 @@ class SalaryService:
     def __init__(self):
         self.repository = SalaryRepository()
 
-    def save(self, person_id, weekly_hours, pay_for_hours, end_date, employment_type):
-        if person_id is None:
+    def save(self, salary):
+        if salary.person_id is None:
             raise ValueError('person_id cannot be None')
-        if weekly_hours is None:
+        if salary.weekly_hours is None:
             raise ValueError('weekly_hours cannot be None')
-        #salary_repository.save(person_id, weekly_hours, pay_for_hours, end_date, employment_type)
+        self.repository.save(salary)
 
     def edit(self,person_id, weekly_hours, pay_for_hours, end_date, employment_type):
         if person_id is None:
             raise ValueError('person_id cannot be None')
         if weekly_hours is None:
             raise ValueError('weekly_hours cannot be None')
-        # salary_repository.edit(person_id, weekly_hours, pay_for_hours, end_date, employment_type)
+        self.repository.edit(salary)
 
     def delete(self,id):
         return self.repository.delete(id)
