@@ -14,6 +14,7 @@ class PersonView:
     def __init__(self):
         self.person_controller = PersonController()
         self.win= Tk()
+        self.win.title("Person Profile")
         self.win.geometry("300x300")
 
         self.id = IntVar()
