@@ -1,30 +1,27 @@
-from model.repository import child_repository
+from model.repository.child_repository import ChildRepository
 
 
-def save_child(id, person_id, name, family, birth_date, is_alive, status):
-    if birth_date >= 1997
-        raise ValueError("your child is too old")
-    return child_repository.save(id, person_id, name, family, birth_date, is_alive, status)
+class ChildService:
+    def __init__(self):
+        self.repository = ChildRepository()
 
+    def save(self, child):
+        return self.repository.save(child)
 
-def edit_child(id, person_id, name, family, birth_date, is_alive, status):
+    def edit(self, child):
+        return self.repository.save(child)
 
-    child = child_repository.find_by_id()
-    if birth_date:
+    def delete(self, child):
+        return self.repository.delete(child)
 
+    def find_all(self):
+        return self.repository.find_all()
 
+    def find_by_id(self, id):
+        return self.repository.find_by_id(id)
 
+    def find_by_person_id(self, personal_id):
+        return self.repository.find_by_person_id(person_id)
 
-def delet(id):
-    child= child_repository.find_by_id()
-    if child:
-        return child.delete()
-    else:
-        raise ValueError("child does not exist")
-
-def find_all():
-    return child_repository.find_by_id()
-
-def find_by_name_and_family(name, family):
-    return child_repository.find_by_name_and_family(name,family)
-
+    def find_by_name_and_family(self, name, family):
+        return self.repository.find_by_name_and_family(name, family)
