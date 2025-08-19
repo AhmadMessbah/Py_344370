@@ -1,4 +1,7 @@
-from model.repository import job_history_repository
+from model.repository.job_history_repository import JobRepository
+
+
+
 
 def save(person_id, organisation, job_title, start_date, end_date, description):
     job_history_repository.save(person_id, organisation, job_title, start_date, end_date, description)
