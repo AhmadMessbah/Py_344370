@@ -11,8 +11,15 @@ def save(person_id,disease,medicine,doctor,visit_date,status):
     except Exception as e:
         return False, f"Error : {e}"
 
-def edit():
-    pass
+def edit(id,person_id,disease,medicine,doctor,visit_date,status):
+    try:
+        if re.match(r"^[a-zA-Z\s]{3,30}$",doctor) and re.match(r"^[a-zA-Z\s]{3,30}$",doctor):
+            medical_service.edit(id,person_id,disease,medicine,doctor,visit_date,status)
+            return True, "Info : Edited Successfully"
+        else:
+            raise ValueError("نام دکتر معتبر نیست !!!")
+    except Exception as e:
+        return False, f"Error : {e}"
 
 def delete(id):
     try:
