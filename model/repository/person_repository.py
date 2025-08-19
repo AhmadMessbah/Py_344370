@@ -28,7 +28,7 @@ class PersonRepository:
         person_list= transaction_manager(
             "select * from persons",
         )
-        person_list=list(map(lambda person: Person(*person), person_list))
+        person_list= list(map(lambda person: Person(*person), person_list))
         return person_list
 
     def find_by_id(self, id):
@@ -43,6 +43,5 @@ class PersonRepository:
             "select * from persons where name like ? and family like ?",
             [name+"%", family+"%"],
         )
-
         person_list = list(map(lambda person: Person(*person), person_list))
         return person_list

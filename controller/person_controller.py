@@ -16,7 +16,7 @@ class PersonController:
             else:
                 raise ValueError("Invalid Name/Family")
         except Exception as e:
-            return False,f"Error !!! {e}"
+            return False, f"Error !!! {e}"
 
     def edit(self, id, name, family, age):
         try:
@@ -26,28 +26,28 @@ class PersonController:
             else:
                 raise ValueError("Invalid Name/Family")
         except Exception as e:
-            return False,f"Error !!! {e}"
+            return False, f"Error !!! {e}"
 
     def delete(self, id):
         try:
-            return True,self.service.delete(id)
+            return True, self.service.delete(id)
         except Exception as e:
-            return False,f"Error !!! {e}"
+            return False, f"Error !!! {e}"
 
     def find_all(self):
         try:
-            return True,self.service.find_all()
+            return True, self.service.find_all()
         except Exception as e:
-            return False,f"Error !!! {e}"
+            return False, f"Error !!! {e}"
 
     def find_by_id(self, id):
         try:
-            return True,self.service.find_by_id(id)
+            return True, self.service.find_by_id(id)
         except Exception as e:
-            return False,f"Error !!! {e}"
+            return False, f"Error !!! {e}"
 
     def find_by_name_and_family(self, name, family):
         try:
-            return True,self.service.find_by_name_and_family(name, family)
+            return True, self.service.find_by_name_and_family(name, family)
         except Exception as e:
-            return False,f"Error !!! {e}"
+            return False, f"Error !!! {e}"
