@@ -111,7 +111,7 @@ table.heading("start_date", text="Start Date")
 table.heading("end_date", text="End Date")
 table.heading("description", text="Description")
 
-table.place(x=330, y=120)
+table.place(x=330, y=120 )
 
 
 
