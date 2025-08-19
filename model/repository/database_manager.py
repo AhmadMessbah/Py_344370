@@ -1,26 +1,49 @@
+import os
 import sqlite3
 
 
 def transaction_manager(sql_command, parameter_list=None, commit=False):
-    connection = sqlite3.connect('./model/repository/class_project.db')
-    cursor = connection.cursor()
-    if parameter_list:
-        cursor.execute(sql_command, parameter_list)
-    else:
-        cursor.execute(sql_command)
-    if commit:
-        connection.commit()
-        result_list = parameter_list
-    else:
-        result_list = cursor.fetchall()
-    cursor.close()
-    connection.close()
-    return result_list
+    # connection = sqlite3.connect('./model/repository/class_project.db')
+    # cursor = connection.cursor()
+    # if parameter_list:
+    #     cursor.execute(sql_command, parameter_list)
+    # else:
+    #     cursor.execute(sql_command)
+    # if commit:
+    #     connection.commit()
+    #     result_list = parameter_list
+    # else:
+    #     result_list = cursor.fetchall()
+    # cursor.close()
+    # connection.close()
+    # return result_list
 
+    try:
+        connection = sqlite3.connect('./model/repository/class_project.db')
+        cursor = connection.cursor()
+        if parameter_list:
+            cursor.execute(sql_command, parameter_list)
+        else:
+            cursor.execute(sql_command)
+        if commit:
+            connection.commit()
+            result_list = parameter_list
+        else:
+            result_list = cursor.fetchall()
+        cursor.close()
+        connection.close()
+        return result_list
+    except sqlite3.Error as e:
+        print(f"خطا در transaction_manager: {e}")
+        return None  # یا هر مقدار مناسب دیگه
 
 def create_database():
-    connection = sqlite3.connect('./model/repository/class_project.db')
-    cursor = connection.cursor()
+    try:
+     connection = sqlite3.connect('./model/repository/class_project.db')
+     cursor = connection.cursor()
+
+    except sqlite3.Error as e:
+        print(f"خطا در create_database: {e}")
 
     # Person table
     cursor.execute(
@@ -181,6 +204,22 @@ def create_database():
         teacher TEXT NOT NULL,
         units INTEGER NOT NULL,
         class_number INTEGER NOT NULL
+        )
+        """
+    )
+
+    # payment_table
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS payments
+        (
+            id           INTEGER PRIMARY KEY AUTOINCREMENT,
+            person_id REFERENCES PERSONS,
+            title        TEXT    NOT NULL,
+            amount       INTEGER NOT NULL,
+            pay_date     TEXT    NOT NULL,
+            payment_type TEXT    NOT NULL,
+            description  TEXT
         )
         """
     )

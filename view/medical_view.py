@@ -3,7 +3,7 @@ from _tkinter import *
 from tkinter import ttk, Tk, StringVar, IntVar, Label
 from model.repository.medical_repository import *
 from model.tools.validation import *
-from view.skill_view import close_window
+
 
 
 
