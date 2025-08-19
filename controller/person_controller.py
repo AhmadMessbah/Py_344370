@@ -1,14 +1,53 @@
 import re
 
-from model.service.person_service import save_person
+from model.entity.person import Person
+from model.service.person_service import PersonService
 
 
-def save(name, family, age):
-    print("Person Controller - (exception handling/validation/request...response)")
-    try:
-        if re.match(r"^[a-zA-Z\s]{3,30}$", name) and re.match(r"^[a-zA-Z\s]{3,30}$", family):
-            return save_person(name, family, age)
-        else:
-            return "Error : Invalid Name/Family"
-    except Exception as e:
-        return f"Error !!! {e}"
+class PersonController:
+    def __init__(self):
+        self.service = PersonService()
+
+    def save(self, name, family, age):
+        try:
+            if re.match(r"^[a-zA-Z\s]{3,30}$", name) and re.match(r"^[a-zA-Z\s]{3,30}$", family):
+                person = Person(None, name, family, age)
+                return True, self.service.save(person)
+            else:
+                raise ValueError("Invalid Name/Family")
+        except Exception as e:
+            return False,f"Error !!! {e}"
+
+    def edit(self, id, name, family, age):
+        try:
+            if re.match(r"^[a-zA-Z\s]{3,30}$", name) and re.match(r"^[a-zA-Z\s]{3,30}$", family):
+                person = Person(id, name, family, age)
+                return True, self.service.edit(person)
+            else:
+                raise ValueError("Invalid Name/Family")
+        except Exception as e:
+            return False,f"Error !!! {e}"
+
+    def delete(self, id):
+        try:
+            return True,self.service.delete(id)
+        except Exception as e:
+            return False,f"Error !!! {e}"
+
+    def find_all(self):
+        try:
+            return True,self.service.find_all()
+        except Exception as e:
+            return False,f"Error !!! {e}"
+
+    def find_by_id(self, id):
+        try:
+            return True,self.service.find_by_id(id)
+        except Exception as e:
+            return False,f"Error !!! {e}"
+
+    def find_by_name_and_family(self, name, family):
+        try:
+            return True,self.service.find_by_name_and_family(name, family)
+        except Exception as e:
+            return False,f"Error !!! {e}"

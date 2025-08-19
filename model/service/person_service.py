@@ -1,9 +1,24 @@
-from model.repository.person_repository import save_to_db
+from model.repository.person_repository import PersonRepository
 
 
-def save_person(name, family, age):
-    print("Person Service - (Business Logic)")
-    if 20 < age < 40:
-        return save_to_db(name, family, age)
-    else:
-        raise Exception("Age is not ok !!!")
+class PersonService:
+    def __init__(self):
+        self.repo = PersonRepository()
+
+    def save(self, person):
+        return self.repo.save(person)
+
+    def edit(self, person):
+        return self.repo.edit(person)
+
+    def delete(self, id):
+        return self.repo.delete(id)
+
+    def find_all(self):
+        return self.repo.find_all()
+
+    def find_by_id(self, id):
+        return self.repo.find_by_id(id)
+
+    def find_by_name_and_family(self, name,family):
+        return self.repo.find_by_name_and_family(name,family)
