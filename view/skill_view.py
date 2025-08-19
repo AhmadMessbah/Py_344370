@@ -2,12 +2,21 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
 from warnings import showwarning
+
+from typing_extensions import ReadOnly
+
 from model.repository.skill_repository import *
 
 def reset_form():
-    pass
+    id.set(0)
+    person_id.set("")
+    title.set("")
+    institute.set("")
+    duration.set("")
+    register_date.set("")
+    score.set(0)
 
-def show_data_on_table(lesson_list):
+def show_data_on_table():
     pass
 def save_click():
     pass
@@ -24,16 +33,17 @@ def table_select(event):
 
 
 def close_window():
-    pass
+    if messagebox.askyesno("Exit", "Are you sure ?"):
+        win.destroy()
 
 
-def search_id(event):
+def search_skill(event):
     pass
 
 win = Tk()
 win.title("Skill")
 win.resizable(width=False, height=False)
-win.geometry("850x400")
+win.geometry("880x400")
 
 
 # id
@@ -87,14 +97,14 @@ id_search_txt.place(x=325,y=20)
 
 # Search title and institute
 title_institute_search = StringVar()
-Label(win,text="Search title and institute").place(x=470,y=20)
+Label(win,text="Search title and institute").place(x=550,y=20)
 title_institute_search = Entry(win, textvariable=title_institute_search)
 title_institute_search.bind("<KeyRelease>", )
-title_institute_search.place(x=620,y=20)
+title_institute_search.place(x=715,y=20)
 
 
 
-table = ttk.Treeview(win, height=12,columns=(1,2,3,4,5,6,7),show="headings")
+table = ttk.Treeview(win, height=14,columns=(1,2,3,4,5,6,7),show="headings")
 table.column(1, width=70)
 table.column(2, width=100)
 table.column(3, width=100)
@@ -103,13 +113,13 @@ table.column(5, width=80)
 table.column(6, width=80)
 table.column(7, width=80)
 
-table.heading(1, text="id ")
-table.heading(2, text="person id")
-table.heading(3, text="title")
-table.heading(4, text="institute")
-table.heading(5, text="duration")
-table.heading(6, text="register date")
-table.heading(7, text="score")
+table.heading(1, text="Id ")
+table.heading(2, text="Person id")
+table.heading(3, text="Title")
+table.heading(4, text="Institute")
+table.heading(5, text="Duration")
+table.heading(6, text="Register date")
+table.heading(7, text="Score")
 
 
 table.bind("<<TreeviewSelect>>", )
@@ -117,8 +127,8 @@ table.bind("<<TreeviewSelect>>", )
 table.place(x=250, y = 60)
 
 
-win.protocol("WM_DELETE_WINDOW", )
+win.protocol("WM_DELETE_WINDOW",  close_window)
 
-# reset_form()
+reset_form()
 
 win.mainloop()

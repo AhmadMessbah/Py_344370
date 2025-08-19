@@ -1,3 +1,4 @@
+import os
 import sqlite3
 
 
@@ -21,6 +22,7 @@ def transaction_manager(sql_command, parameter_list=None, commit=False):
 def create_database():
     connection = sqlite3.connect('./model/repository/class_project.db')
     cursor = connection.cursor()
+
 
     # Person table
     cursor.execute(
