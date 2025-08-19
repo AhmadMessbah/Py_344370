@@ -43,7 +43,7 @@ def search_skill(event):
 win = Tk()
 win.title("Skill")
 win.resizable(width=False, height=False)
-win.geometry("850x400")
+win.geometry("880x400")
 
 
 # id
@@ -100,11 +100,11 @@ title_institute_search = StringVar()
 Label(win,text="Search title and institute").place(x=550,y=20)
 title_institute_search = Entry(win, textvariable=title_institute_search)
 title_institute_search.bind("<KeyRelease>", )
-title_institute_search.place(x=710,y=20)
+title_institute_search.place(x=715,y=20)
 
 
 
-table = ttk.Treeview(win, height=12,columns=(1,2,3,4,5,6,7),show="headings")
+table = ttk.Treeview(win, height=14,columns=(1,2,3,4,5,6,7),show="headings")
 table.column(1, width=70)
 table.column(2, width=100)
 table.column(3, width=100)
