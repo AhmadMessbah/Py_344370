@@ -1,65 +1,65 @@
 import re
 
-from model.service.salary_service import *
+from model.entity.salary import Salary
+from model.service.salary_service import SalaryService
 
+class SalaryController:
+    def __init__(self):
+        self.salary_service = SalaryService()
 
-def save(person_id, weekly_hours, pay_for_hours, end_date, employment_type):
-    try:
-        if re.match(r"^[0-9]{4}$", person_id):
-            salary_repository.save(person_id, weekly_hours, pay_for_hours, end_date, employment_type)
-            return True, "info: saved successfully"
-        else:
-            raise ValueError("Invalid person id")
-    except Exception as e:
-        return False, "error: {e}"
+    def save(self,person_id, weekly_hours, pay_for_hours, end_date, employment_type):
+        try:
+            if re.match(r"^[0-9]{4}$", person_id):
+                salary=Salary(person_id, weekly_hours, pay_for_hours, end_date, employment_type)
+                #self.salary_service.save(person_id, weekly_hours, pay_for_hours, end_date, employment_type)
+                return True, "info: saved successfully"
+            else:
+                raise ValueError("Invalid person id")
+        except Exception as e:
+            return False, "error: {e}"
 
+    def edit(self,id, person_id, weekly_hours, pay_for_hours, end_date, employment_type):
+        try:
+            if re.match(r"^[0-9]{4}$", person_id):
+                salary=Salary(id, weekly_hours, pay_for_hours, end_date, employment_type)
+               # self.salary_service.edit(id, person_id, weekly_hours, pay_for_hours, end_date, employment_type)
+                return True, "info: edit successfully"
+            else:
+                raise ValueError("Invalid person id")
+        except Exception as e:
+            return False, "error: {e}"
 
-def edit(id, person_id, weekly_hours, pay_for_hours, end_date, employment_type):
-    try:
-        if re.match(r"^[0-9]{4}$", person_id):
-            salary_repository.edit(id, person_id, weekly_hours, pay_for_hours, end_date, employment_type)
-            return True, "info: edit successfully"
-        else:
-            raise ValueError("Invalid person id")
-    except Exception as e:
-        return False, "error: {e}"
+    def delete(self,id):
+        try:
+            self.salary_service.delete(id)
+            return True, "info: delete successfully"
 
+        except Exception as e:
+            return False, "error: {e}"
 
-def delete(id):
-    try:
-        salary_repository.delete(id)
-        return True, "info: delete successfully"
+    def find_all(self):
+        try:
+            return True, self.salary_service.find_all()
+        except Exception as e:
+            return False, "error: {e}"
 
-    except Exception as e:
-        return False, "error: {e}"
+    def find_by_id(self,person_id):
+        try:
+            salary = self.salary_service.find_by_id()
+            if not salary:
+                raise ValueError("کارمندی یافت نشد")
+            return True, self.salary_service.find_by_id()
+        except Exception as e:
+            return False, "error: {e}"
 
+    def find_by_person_id(self,person_id):
+        try:
+            return True, self.salary_service.find_by_person_id(person_id)
+        except Exception as e:
+            return False, "error: {e}"
 
-def find_all():
-    try:
-        return True, salary_repository.find_all()
-    except Exception as e:
-        return False, "error: {e}"
-
-
-def find_by_id(person_id):
-    try:
-        salary = salary_repository.find_by_id()
-        if not salary:
-            raise ValueError("کارمندی یافت نشد")
-        return True, salary_repository.find_by_id()
-    except Exception as e:
-        return False, "error: {e}"
-
-
-def find_by_person_id(person_id):
-    try:
-        return True, salary_repository.find_by_person_id(person_id)
-    except Exception as e:
-        return False, "error: {e}"
-
-
-def find_by_employment_type(employment_type):
-    try:
-        return True, salary_repository.find_by_employment_type(employment_type)
-    except Exception as e:
-        return False, "error: {e}"
+    def find_by_employment_type(self,employment_type):
+        try:
+            return True, self.salary_service.find_by_employment_type(employment_type)
+        except Exception as e:
+            return False, "error: {e}"
