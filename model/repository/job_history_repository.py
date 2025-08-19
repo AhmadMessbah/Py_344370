@@ -39,5 +39,4 @@ def find_by_id(id):
 def find_by_job_title(job_title):
     job_title = transaction_manager(
         "select * from jobs where job_title=?",
-        [job_title]
-    )
+        [job_title])

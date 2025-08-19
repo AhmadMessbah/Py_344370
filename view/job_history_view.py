@@ -119,5 +119,4 @@ table.place(x=330, y=120)
 
 
 
-
 window.mainloop()
