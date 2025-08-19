@@ -108,14 +108,14 @@ table.column("start_date", width=82)
 table.column("end_date", width=82)
 
 table.heading("id", text="Id")
-table.heading("person_id", text="Person id")
+table.heading("person_id", text="Person Id")
 table.heading("university", text="University")
 table.heading("grade", text="Grade")
 table.heading("average", text="Average")
 table.heading("start_date", text="Start Date")
 table.heading("end_date", text="End Date")
 
-# table.bind("<<TreeviewSelect>>", select)
+table.bind("<<TreeviewSelect>>", select)
 table.place(x=252, y=70)
 
 reset_form()

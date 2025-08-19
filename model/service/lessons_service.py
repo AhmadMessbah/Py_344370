@@ -1,28 +1,35 @@
-from model.repository import lesson_repository
+from model.repository.lesson_repository import LessonRepository
+
+class LessonService:
+    def __init__(self):
+        self.repo= LessonService
 
 
-def save(person_id, title, code, teacher, unit, class_number):
-    lesson_repository.save(person_id, title, code, teacher, unit, class_number)
 
 
-def edit(id, person_id, title, code, teacher, unit, class_number):
-    return lesson_repository.edit(id, person_id, title, code, teacher, unit, class_number)
+
+    def save(self,person_id, title, code, teacher, unit, class_number):
+        return self.repo.save(person_id, title, code, teacher, unit, class_number)
 
 
-def delete(id):
-    return lesson_repository.delete(id)
+    def edit(self,id, person_id, title, code, teacher, unit, class_number):
+         return  self.repo.edit(id, person_id, title, code, teacher, unit, class_number)
 
 
-def find_by_all():
-    return lesson_repository.find_all()
+    def delete(self,id):
+        return self.repo.delete(id)
 
 
-def find_by_id(id):
-    return lesson_repository.find_by_id(id)
+     def find_by_all(self):
+         return self.repo.find_all()
 
 
-def find_by_title(title):
-    return lesson_repository.find_by_title(title)
+    def find_by_id(self,id):
+        return self.repo.find_by_id(id)
 
-def find_by_teacher(teacher):
-    return lesson_repository.find_by_teacher(teacher)
+
+    def find_by_title(self,title):
+         return self.repo.find_by_title(title)
+
+    def find_by_teacher(self,teacher):
+        return self.repo.find_by_teacher(teacher)

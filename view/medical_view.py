@@ -3,62 +3,38 @@ from _tkinter import *
 from tkinter import ttk, Tk, StringVar, IntVar, Label
 from model.repository.medical_repository import *
 from model.tools.validation import *
-
-
-
-
+from controller.medical_controller import MedicalController
 
 
 # 5
-def reset_form():
+def reset_form(self):
     id.set(0)
     person_id.set(0)
     disease.set("")
     medicine.set("")
     doctor.set("")
-    # visit_date("")
+    visit_date("")
     status.set("")
 
+class medical_view:
 # 6
-def save_click():
+ def save_click(self):
     pass
-    # if title_validator(title.get()) and title_validator(teacher.get()) and class_number_validator(class_number.get()) and 0<unit.get()<=24:
-    #     save(title.get(),teacher.get(),class_number.get(),unit.get())
-    #     messagebox.showinfo("Save", f"Successfully saved!")
-    #     reset_form()
-    #     show_data_on_table(find_all())
-    # else:
-    #     messagebox.showerror("Error", "Please enter a valid title/teacher/class number/unit")
-
-def edit_click():
-    pass
-    # if title_validator(title.get()) and title_validator(teacher.get()) and class_number_validator(class_number.get()) and 0<unit.get()<=24:
-    #     edit(code.get(),title.get(), teacher.get(), class_number.get(), unit.get())
-    #     messagebox.showinfo("Edit", f"Successfully edited!")
-    #     reset_form()
-    #     show_data_on_table(find_all())
-    # else:
-    #     messagebox.showerror("Error", "Please enter a valid code/title/teacher/class number/unit")
 
 
-def remove_click():
+def edit_click(self):
     pass
-    # remove(code.get())
-    # messagebox.showinfo("Remove", f"Successfully removed!")
-    # reset_form()
-    # show_data_on_table(find_all())
+
+
+
+def remove_click(self):
+    pass
+
 
 # 7
 def table_select(event):
     pass
-    # table_row=table.focus()
-    # selected=table.item(table_row)["values"]
-    # if selected:
-    #     code.set(selected[0])
-    #     title.set(selected[1])
-    #     teacher.set(selected[2])
-    #     class_number.set(selected[3])
-    #     unit.set(selected[4])
+
 
 
 

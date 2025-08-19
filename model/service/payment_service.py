@@ -1,37 +1,25 @@
-from model.repository import payment_repository
+from model.repository.payment_repository import PaymentRepository
 
 
-def save(person_id, title, amount, pay_date, payment_type, description):
-    if 500 > amount:
-        raise ValueError("Payment Is Less Than The Allowed Limit !!!")
-    return payment_repository.save(person_id, title, amount, pay_date, payment_type, description)
+class PaymentService:
+    def __init__(self):
+        self.repo = PaymentRepository()
+
+    def save(self, payment):
+        return self.repo.save(payment)
+
+    def edit(self, payment):
+        return self.repo.edit(payment)
 
 
-def edit(id, person_id, title, amount, pay_date, payment_type, description):
-    pay = payment_repository.find_by_id(id)
-    if pay:
-        if 500 > amount:
-            raise ValueError("Payment Is Less Than The Allowed Limit !!!")
-        return payment_repository.edit(id, person_id, title, amount, pay_date, payment_type, description)
-    else:
-        raise ValueError("Invalid ID !!!")
+    def delete(self, id):
+        return self.repo.delete(id)
 
+    def find_by_all(self):
+        return self.repo.find_all()
 
-def remove(id):
-    pay = payment_repository.find_by_id(id)
-    if pay:
-        return payment_repository.find_by_id(id)
-    else:
-        raise ValueError("Invalid ID !!!")
+    def find_by_id(self, id):
+        return self.repo.find_by_id(id)
 
-
-def find_all():
-    return payment_repository.find_all()
-
-
-def find_by_id(id):
-    return payment_repository.find_by_id(id)
-
-
-def find_by_payment_type(payment_type):
-    return payment_repository.find_by_payment_type(payment_type)
+    def find_by_payment_type(self, payment_type):
+        return self.repo.find_by_payment_type(payment_type)

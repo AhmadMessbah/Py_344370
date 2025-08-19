@@ -1,9 +1,9 @@
-from model.repository import education_repository
+from model.repository.education_repository import EducationRepository
 
 class EducationService:
 
     def __init__(self):
-        self.repo = education_repository
+        self.repo = EducationRepository()
 
     def save(self,education):
         return self.repo.save(education)

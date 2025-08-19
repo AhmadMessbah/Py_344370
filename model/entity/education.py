@@ -12,4 +12,4 @@ class Education:
         return f"{self.__dict__}"
 
     def to_tuple(self):
-        return (self.id, self.person_id, self.university, self.grade, self.average, self.start_date, self.end_date)
+        return tuple((self.id, self.person_id, self.university, self.grade, self.average, self.start_date, self.end_date))
