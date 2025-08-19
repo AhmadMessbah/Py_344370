@@ -3,7 +3,7 @@
 
 from model.service.salary_service import *
 #test is ok
-save(100,100,10,"2025-11-31", "Yearly")
+# save(100,100,10,"2025-11-31", "Yearly")
 
 #test is ok
 #delete(5)
