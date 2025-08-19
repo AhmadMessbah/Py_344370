@@ -1,58 +1,26 @@
 from tkinter import *
-from tkinter.messagebox import *
-from tkinter import ttk, messagebox
-from model.repository.salary_repository import *
+import tkinter.messagebox as msg
+from controller.salary_controller import SalaryController
+from view.component.label_with_text import LabelWithText
 
 
-def reset_form():
-    person_id.set()
-    weekly_hours.set()
-    pay_for_hours.set()
-    end_date.set()
-    employment_type.set()
+class SalaryView:
+    def save_click(self):
+        status, message = self.salary_controller.save(self.id.get(), self.person_id.get(), self.weekly_hours.get(),
+                                                      self.pay_for_hours.get(), self.end_date.get(),
+                                                      self.employment_type.get())
+        if status:
+            msg.showinfo("saved", message)
+        else:
+            msg.showerror("error", message)
 
-    show_date_on_table(find_all())
-
-
-def select_product(event):
-    tabel_raw = tabel.focus()
-    selected = tabel.item(tabel_raw)['values']
-    print(tabel_raw, selected)
-    person_id.set(selected[0])
-    weekly_hours.set(selected[1])
-    pay_for_hours.set(selected[2])
-    end_date.set(selected[3])
-    employment_type.set(selected[4])
-
-def show_date_on_table(product_list):
-    for item in tabel.get_children():
-        tabel.delete(item)
-
-    for product in product_list:
-        tabel.insert("", END, values=product)
-
-product_list = []
-
-
-def save_check():
-    save(person_id.get(),weekly_hours.get(),pay_for_hours.get(),end_date.get(),employment_type.get())
-    messagebox.showinfo("Saved", f"Saved successfully!")
-    reset_form()
-    show_date_on_table(find_all())
-
-
-def edit_check():
-    edit(id.get(),person_id.get(), weekly_hours.get(), pay_for_hours.get(), end_date.get(), employment_type.get())
-    messagebox.showinfo("edit", f"edite successfully!")
-    reset_form()
-    show_date_on_table(find_all())
-
-
-def remove_check():
-    delete(id.get)
-    messagebox.showinfo("delete", f"delete successfully!")
-    reset_form()
-    show_date_on_table(find_all())
+    def __init__(self):
+        self.salary_controller = SalaryController()
+        self.win = Tk()
+        self.win.title("salary")
+        self.win.geometry("680x360")
+        self.id=IntVar()
+        LabelWithText(self.win,"ID",self.id,20,20)
 
 
 window = Tk()
@@ -86,8 +54,6 @@ Label(window, text="employment_type").place(x=20, y=180)
 employment_type = StringVar()
 Entry(window, textvariable=employment_type).place(x=95, y=180)
 
-
-
 Button(window, text="save", width=7, command=save_check).place(x=20, y=300)
 Button(window, text="edit", width=7, command=save_check).place(x=90, y=300)
 Button(window, text="remove", width=7, command=save_check).place(x=160, y=300)
@@ -106,8 +72,63 @@ tabel.heading(3, text="pay for hours")
 tabel.heading(4, text="end date")
 tabel.heading(5, text="employment_type")
 
-
 tabel.bind("<<TreeviewSelect>>", select_product)
 
 tabel.place(x=250, y=60)
 window.mainloop()
+
+
+
+# def reset_form():
+#
+#     person_id.set()
+#     weekly_hours.set()
+#     pay_for_hours.set()
+#     end_date.set()
+#     employment_type.set()
+#
+#     show_date_on_table(find_all())
+#
+#
+# def select_product(event):
+#     tabel_raw = tabel.focus()
+#     selected = tabel.item(tabel_raw)['values']
+#     print(tabel_raw, selected)
+#     person_id.set(selected[0])
+#     weekly_hours.set(selected[1])
+#     pay_for_hours.set(selected[2])
+#     end_date.set(selected[3])
+#     employment_type.set(selected[4])
+#
+#
+# def show_date_on_table(product_list):
+#     for item in tabel.get_children():
+#         tabel.delete(item)
+#
+#     for product in product_list:
+#         tabel.insert("", END, values=product)
+#
+#
+# product_list = []
+#
+#
+# def save_check():
+#     save(person_id.get(), weekly_hours.get(), pay_for_hours.get(), end_date.get(), employment_type.get())
+#     messagebox.showinfo("Saved", f"Saved successfully!")
+#     reset_form()
+#     show_date_on_table(find_all())
+#
+#
+# def edit_check():
+#     edit(id.get(), person_id.get(), weekly_hours.get(), pay_for_hours.get(), end_date.get(), employment_type.get())
+#     messagebox.showinfo("edit", f"edite successfully!")
+#     reset_form()
+#     show_date_on_table(find_all())
+#
+#
+# def remove_check():
+#     delete(id.get)
+#     messagebox.showinfo("delete", f"delete successfully!")
+#     reset_form()
+#     show_date_on_table(find_all())
+#
