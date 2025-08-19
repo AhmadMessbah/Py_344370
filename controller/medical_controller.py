@@ -1,47 +1,52 @@
+from model.entity.medical import Medical
 from model.service import medical_service
 import re
 
-def save(person_id,disease,medicine,doctor,visit_date,status):
+from model.service.medical_service import MedicalService
+
+
+class MedicalController:
+    def __init__(self):
+        self.service = MedicalService()
+
+def save(self,person_id,disease,medicine,doctor,visit_date,status):
     try:
         if re.match(r"^[a-zA-Z\s]{3,30}$", doctor):
-            medical_service.save(person_id, disease, medicine, doctor, visit_date,status)
-            return True, "Info : Student Saved Successfully"
+            medical = Medical(None, person_id, disease,medicine,doctor,visit_date,status )
+            return True, self.service.save(medical)
         else:
             raise ValueError("نام دکتر معتبر نیست !!!")
     except Exception as e:
         return False, f"Error : {e}"
 
-def edit(id,person_id,disease,medicine,doctor,visit_date,status):
+def edit(self,id,person_id,disease,medicine,doctor,visit_date,status):
     try:
         if re.match(r"^[a-zA-Z\s]{3,30}$",doctor) and re.match(r"^[a-zA-Z\s]{3,30}$",doctor):
-            medical_service.edit(id,person_id,disease,medicine,doctor,visit_date,status)
-            return True, "Info : Edited Successfully"
+           medical = Medical(id,person_id,disease,medicine,doctor,visit_date,status)
+           return True, self.service.edit(medical)
         else:
             raise ValueError("نام دکتر معتبر نیست !!!")
     except Exception as e:
         return False, f"Error : {e}"
 
-def delete(id):
+def delete(self,id):
     try:
-        medical_service.delete(id)
-        return True, "Info :  Removed Successfully"
+        return True, self.service.delete(id)
     except Exception as e:
         return False, f"Error : {e}"
 
-def find_all():
+def find_all(self):
     try:
-        return True, medical_service.find_all()
+        return self.service.find_all()
     except Exception as e:
         return False, f"Error : {e}"
 
-def find_by_id(id):
+def find_by_id(self,id):
     try:
-        person = medical_service.find_by_id(id)
-        if not person:
-            raise ValueError("فرد مورد نظر یافت نشد !!!")
-        return True, person
+        return self.service.find_by_id(id)
+
     except Exception as e:
         return False, f"Error : {e}"
 
-def find_by_name_and_family():
-    pass
+def find_by_name_and_family(self,name,family):
+    return True,self .service.find_by_name_and_family()
