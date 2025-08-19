@@ -1,19 +1,19 @@
 from model.repository import job_history_repository
 
 def save(person_id, organisation, job_title, start_date, end_date, description):
-    pass
+    job_history_repository.save(person_id, organisation, job_title, start_date, end_date, description)
 
 def edit(id, person_id, organisation, job_title, start_date, end_date, description):
-    pass
+    job_history_repository.edit(id, organisation, job_title, start_date, end_date, description)
 
 def delete(id):
-    pass
+    job_history_repository.delete(id)
 
 def find_all():
-    pass
+    job_history_repository.find_all()
 
 def find_by_id(id):
-    pass
+    job_history_repository.find_by_id(id)
 
 def find_by_job_title(job_title):
-    pass
+    job_history_repository.find_by_job_title(job_title)

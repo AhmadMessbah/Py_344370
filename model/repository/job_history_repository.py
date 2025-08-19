@@ -31,7 +31,13 @@ def find_all():
     )
 
 def find_by_id(id):
-    pass
+    id = transaction_manager(
+        "select * from jobs where id=?",
+        [id]
+    )
 
-def find_by_title(title):
-    pass
+def find_by_job_title(job_title):
+    job_title = transaction_manager(
+        "select * from jobs where job_title=?",
+        [job_title]
+    )
