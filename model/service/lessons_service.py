@@ -1,30 +1,28 @@
 from model.repository import lesson_repository
 
 
-
 def save(person_id, title, code, teacher, unit, class_number):
-    pass
+    lesson_repository.save(person_id, title, code, teacher, unit, class_number)
 
 
 def edit(id, person_id, title, code, teacher, unit, class_number):
-    pass
+    return lesson_repository.edit(id, person_id, title, code, teacher, unit, class_number)
 
 
 def delete(id):
-    pass
+    return lesson_repository.delete(id)
 
 
-def find_all():
-    pass
+def find_by_all():
+    return lesson_repository.find_all()
 
 
 def find_by_id(id):
-    pass
+    return lesson_repository.find_by_id(id)
 
 
 def find_by_title(title):
-    pass
-
+    return lesson_repository.find_by_title(title)
 
 def find_by_teacher(teacher):
-    pass
+    return lesson_repository.find_by_teacher(teacher)
