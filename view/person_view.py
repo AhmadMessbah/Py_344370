@@ -71,7 +71,7 @@ class PersonView:
         self.win.geometry("600x315")
 
         self.id = IntVar()
-        LabelWithText(self.win, "Id", self.id, 20, 20)
+        LabelWithText(self.win, "Id", self.id, 20, 20, "readonly")
 
         self.name = StringVar()
         LabelWithText(self.win, "Name", self.name, 20, 60)
