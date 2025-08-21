@@ -7,10 +7,6 @@ from model.entity.skill import Skill
 from view.component.label_with_text import LabelWithText
 
 
-# def close_window():
-#     if messagebox.askyesno("Exit", "Are you sure ?"):
-#         win.destroy()
-
 class SkillView:
     def reset_form(self):
         self.id.set(0)
@@ -51,6 +47,7 @@ class SkillView:
             self.show_data_on_table(skill_list)
 
     def save_click(self):
+        #todo:از استاد بپرسم
         status, message = self.skill_controller.save(self.person_id.get(), self.title.get(), self.institute.get(),self.duration.get(),self.register_date.get(),self.score.set())
         if status:
             msg.showinfo("Saved", f"{message} Saved")
@@ -73,6 +70,10 @@ class SkillView:
             self.reset_form()
         else:
             msg.showerror("Error", message)
+
+    # def close_window(self):
+    #     if msg.askyesno("Exit", "Are you sure ?"):
+    #         self.win.destroy()
 
     def __init__(self):
         self.skill_controller = SkillController()
@@ -148,8 +149,4 @@ class SkillView:
         self.reset_form()
         self.win.mainloop()
 
-# id_search_txt.place(x=325,y=20)
-
-# title_institute_search.place(x=715,y=20)
-
-# win.protocol("WM_DELETE_WINDOW",  close_window)
+        # self.win.protocol("WM_DELETE_WINDOW",  self.close_window)
