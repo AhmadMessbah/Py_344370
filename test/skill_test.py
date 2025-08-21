@@ -24,3 +24,7 @@
 
 # test passed
 # print(find_by_title_and_institute("g","Creative"))
+
+from view.skill_view import SkillView
+
+ui =SkillView()
