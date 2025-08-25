@@ -5,3 +5,6 @@ create_database()
 print("Database Created")
 
 import test.person_test
+
+
+print("Salam")
