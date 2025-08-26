@@ -15,7 +15,7 @@ class PaymentService:
     def delete(self, id):
         return self.repo.delete(id)
 
-    def find_by_all(self):
+    def find_all(self):
         return self.repo.find_all()
 
     def find_by_id(self, id):
