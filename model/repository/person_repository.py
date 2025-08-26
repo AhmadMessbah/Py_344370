@@ -34,6 +34,7 @@ class PersonRepository:
     def find_by_id(self, id):
         person = transaction_manager(
             "select * from persons where id=?",
+            [id]
         )
         person =  Person(*person)
         return person

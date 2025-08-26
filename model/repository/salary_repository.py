@@ -1,5 +1,3 @@
-from linecache import updatecache
-
 from model.repository.database_manager import transaction_manager
 
 
