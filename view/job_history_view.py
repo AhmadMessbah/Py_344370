@@ -94,13 +94,13 @@ Entry(window, textvariable=search_organisation).place(x=700, y=30)
 table = ttk.Treeview(window, height = 15, columns = ("id", "person_id","organisation", "job_title", "start_date", "end_date", "description"), show="headings")
 
 
-table.column("id", width=65)
+table.column("id", width=60)
 table.column("person_id", width=65)
-table.column("organisation", width=65)
+table.column("organisation", width=77)
 table.column("job_title", width=65)
 table.column("start_date", width=65)
 table.column("end_date", width=65)
-table.column("description", width=85)
+table.column("description", width=90)
 
 
 table.heading("id", text="ID")

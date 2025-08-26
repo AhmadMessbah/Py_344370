@@ -1,42 +1,94 @@
-from model.repository.database_manager import  transaction_manager
+from model.entity.marriage_repository import Marriage
+from model.repository.database_manager import transaction_manager
+
+class MarriageRepository:
+    def save(self, marriage):
+        return transaction_manager(
+            "insert into marriages (person_id,name,family,marriage_date,childes) values (?, ?,?,?,?)",
+            [marriage.person_id,marriage.name,marriage.family,marriage.childes],
+            commit=True
+
+        )
+
+    def edit(self, marrriage):
+        return transaction_manager(
+            "update marriages set person_id=?,name=?, family=?, age=?,marriage_date=?,childes=? where id=?",
+            [marriage.name, marriage.family, marriage.age, marriage.id],
+            commit=True
+        )
+
+    def delete(self, id):
+        return transaction_manager(
+            "delete from marriages where id=?",
+            [id],
+            commit=True
+        )
+
+    def find_all(self):
+        marriage_list= transaction_manager(
+            "select * from marriages",
+        )
+        marriage_list= list(map(lambda marriage: marriage(*marriage), marriage_list))
+        return marriage_list
+
+    def find_by_id(self, id):
+        marriage = transaction_manager(
+            "select * from marriages where id=?",
+        )
+        marriage =  Person(*marriage)
+        return marriage
+
+    def find_by_name_and_family(self, name, family):
+        marriage_list = transaction_manager(
+            "select * from marriages where name like ? and family like ?",
+            [name+"%", family+"%"],
+        )
+        marriage_list = list(map(lambda marriage: marriage(*marriage), marriage_list))
+        return marriage_list
 
 
-def save(person_id, name, family, marriage_date, is_alive, childes):
-    return transaction_manager(
-        "insert into marriages (person_id, name, family, marriage_date, is_alive, childes) values (?,?,?,?,?,?)",
-        [person_id, name, family, marriage_date, is_alive, childes],
-        commit=True
-    )
 
 
-def edit(id, person_id, name, family, marriage_date, is_alive, childes):
-    return transaction_manager(
-        "UPDATE marriages SET PERSON_ID=?, NAME=?,FAMILY=?,MARRIAGE_DATE=?,IS_ALIVE=?, childes=? WHERE ID=?",
-        [person_id, name, family, marriage_date, is_alive, childes, id],
-        commit=True
-    )
 
 
-def remove(id):
-    return transaction_manager(
-        "",
-        [id],
-        commit=True
-    )
 
-def find_all():
-    return transaction_manager(
-        "SELECT * FROM marriages"
-    )
 
-def find_by_id(id):
-    return transaction_manager(
-        "SELECT * FROM marriages WHERE ID=?",
-        [id]
-    )
 
-def find_by_name_and_family(family,name):
-    return transaction_manager(
-        "SELECT * FROM marriages WHERE NAME like ? AND FAMILY like ?",
-        [name+"%", family + "%"]
-    )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

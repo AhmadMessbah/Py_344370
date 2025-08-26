@@ -16,5 +16,8 @@ class JobHistory:
     def to_tuple(self):
         return (self.id, self.person_id,
         self.organisation,self.job_title,
-        self.start_date, self.end_date, self.description
+        self.start_date, self.end_date,
+        self.description
         )
+
+
