@@ -47,7 +47,7 @@ class EducationController:
 
     def find_by_id(self,id):
         try:
-            user = self.find_by_person_id(id)
+            user = self.service.find_by_person_id(id)
             if not user:
                 raise ValueError("کاربر مورد نظر یافت نشد!!")
             return True, user
@@ -57,6 +57,6 @@ class EducationController:
 
     def find_by_person_id(self,person_id):
         try:
-            return True, self.find_by_person_id(person_id)
+            return True, self.service.find_by_person_id(person_id)
         except Exception as e:
             return False, f"Error: {e}"
