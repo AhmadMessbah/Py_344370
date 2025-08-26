@@ -1,64 +1,89 @@
-from model.service import lessons_service
 import re
+from model.entity.lesson import Lesson
+from model.service.lesson_service import LessonService
+
+class LessonController:
+    def __init__(self):
+        self.service = LessonsService()
+
+    def save(self, id, person_id, title, code, teacher, unit, class_number):
+        try:
+            if re.match(r"^[a-zA-Z\s]{3,30}$", title) and re.match(r"^[a-zA-Z\s]{3,30}$", teacher):
+                Lessons = Lessons(None, id, person_id, title, code, teacher, unit, class_number)
+                return True, self.service.save(Lessons)
+            else:
+                raise ValueError("Invalid title/teacher")
+        except Exception as e:
+            return False, f"Error !!! {e}"
+
+    def edit(self, id, person_id, title, code, teacher, unit, class_number):
+        try:
+            if re.match(r"^[a-zA-Z\s]{3,30}$", title) and re.match(r"^[a-zA-Z\s]{3,30}$", teacher):
+                Lessons = Lessons(id, person_id, title, code, teacher, unit, class_number)
+                return True, self.service.edit(Lessons)
+            else:
+                raise ValueError("Invalid title/teacher")
+        except Exception as e:
+            return False, f"Error !!! {e}"
+
+    def delete(self, id):
+        try:
+            return True, self.service.delete(id)
+        except Exception as e:
+            return False, f"Error !!! {e}"
+
+    def find_all(self):
+        try:
+            return True, self.service.find_all()
+        except Exception as e:
+            return False, f"Error !!! {e}"
+
+    def find_by_id(self, id):
+        try:
+            return True, self.service.find_by_id(id)
+        except Exception as e:
+            return False, f"Error !!! {e}"
+
+    def find_by_title_and_teacher(self, title, teacher):
+        try:
+            return True, self.service.find_by_title_and_teacher(title, teacher)
+        except Exception as e:
+            return False, f"Error !!! {e}"
 
 
 
-def save(person_id, title, code, teacher, unit, class_number):
-    try:
-        if re.match(r"^1[\d]{5}$",code):
-            return lessons_service.save(person_id,class_number,teacher,unit,title)
-        else:
-            return "error "
-    except Exception as e:
-        return False, f"error {e}"
-
-
-def edit(id, person_id, title, code, teacher, unit, class_number):
-    try:
-        if re.match(r"^[\d]{5}$]"):
-            return lessons_service.edit(id,person_id,title,code,teacher,unit,class_number)
-        else:
-            return "error"
-    except Exception as e:
-        return "errorEdit"
-
-
-def delete(id):
-    try:
-        lessons_service.delete(id)
-        return True,"Info: lesson deleted"
-    except Exception as e:
-        return False,f"error{e}"
-
-
-def find_by_id(id):
-    try:
-        lesson=lessons_service.find_by_id(id)
-        if not lesson:
-            raise ValueError(f"lesson not found{id}")
-        return True,lesson
-    except Exception as e:
-        return False,f"error{e}"
 
 
 
-def find_by_all():
-    try:
-        return lessons_service.find_all()
-    except Exception as e:
-        return False,f"error{e}"
 
 
 
-def find_by_title(title):
-    try:
-        return lessons_service.find_by_title(title)
-    except Exception as e:
-        return False,f"error{e}"
 
 
-def find_by_teacher(teacher):
-    try:
-        return lessons_service.find_by_teacher(teacher)
-    except Exception as e:
-        return False,f"error{e}"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
