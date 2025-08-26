@@ -9,25 +9,43 @@ class JobHistoryController:
         self.service = JobHistoryService()
 
     def save(self,person_id, organisation, job_title, start_date, end_date, description):
-        job_history = JobHistory(None, person_id, organisation,
-        job_title, start_date,
-        end_date, description)
-        return True ,self.service.save(job_history)
+        try:
+            job_history = JobHistory(None, person_id, organisation,
+            job_title, start_date,
+            end_date, description)
+            return True ,self.service.save(job_history)
+        except Exception as e:
+            return False, f"Error!!! {e}"
 
     def edit(self,id, person_id, organisation, job_title, start_date, end_date, description):
-        job_history = JobHistory(None, person_id, organisation,
-        job_title, start_date,
-        end_date, description)
-        return True, self.service.save(job_history)
+        try:
+            job_history = JobHistory(None, person_id, organisation,
+            job_title, start_date,
+            end_date, description)
+            return True, self.service.save(job_history)
+        except Exception as e:
+            return False, f"Error!!! {e}"
 
     def delete(self,id):
-        return True, self.service.delete(id)
+        try:
+            return True, self.service.delete(id)
+        except Exception as e:
+            return False, f"Error!!! {e}"
 
     def find_all(self):
-        return True, self.service.find_all()
+        try:
+            return True, self.service.find_all()
+        except Exception as e:
+            return False, f"Error!!! {e}"
 
     def find_by_id(self,id):
-        return True, self.service.find_by_id(id)
+        try:
+            return True, self.service.find_by_id(id)
+        except Exception as e:
+            return False, f"Error!!! {e}"
 
     def find_by_job_title(self,job_title):
-        return True, self.service.find_by_job_title(job_title)
+        try:
+            return True, self.service.find_by_job_title(job_title)
+        except Exception as e:
+            return False, f"Error!!! {e}"
