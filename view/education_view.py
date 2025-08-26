@@ -13,7 +13,7 @@ from view.component.label_with_text import LabelWithText
 class EducationView:
     def reset_form(self):
         self.id.set(0)
-        self.person_id.set(0)
+        self.person_id.set("")
         self.university.set("")
         self.grade.set("")
         self.average.set(0)
