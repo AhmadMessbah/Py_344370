@@ -1,3 +1,4 @@
+from model.entity.education import Education
 from model.repository.database_manager import transaction_manager
 
 
@@ -26,13 +27,17 @@ class EducationRepository:
 
     def find_all(self):
         education_list = transaction_manager(
-            'select * from educations')
+            'select * from educations'
+        )
+        education_list = list(map(lambda education:Education(*education),education_list))
         return education_list
 
     def find_by_id(self, id):
         education = transaction_manager('select * from educations where id = ?', [id])
+        education = Education(*education)
         return education
 
     def find_by_person_id(self, person_id):
-        person = transaction_manager('select * from educations where person_id = ?', [person_id])
-        return person
+        education_list = transaction_manager('select * from educations where person_id = ?', [person_id])
+        education_list=list(map(lambda education:Education(*education),education_list))
+        return education_list
