@@ -74,17 +74,17 @@ card_serial_founder_panel_EN.place(x=590, y=10)
 
 
 #buttons
-save_btn=Button(window, text="Save",bg="green",fg="white",width=8)
+save_btn=Button(window, text="Save",bg="lightgreen",fg="black",width=8)
 save_btn.place(x=10 , y=350)
-edit_btn=Button(window, text="Edit",bg="green",fg="white",width=8)
+edit_btn=Button(window, text="Edit",bg="lightgreen",fg="black",width=8)
 edit_btn.place(x=80 , y=350)
-remove_btn=Button(window, text="Remove",bg="green",fg="white",width=8)
+remove_btn=Button(window, text="Remove",bg="lightgreen",fg="black",width=8)
 remove_btn.place(x=150 , y=350)
-clear_btn=Button(window, text="Clear",bg="green",fg="white",width=28)
+clear_btn=Button(window, text="Clear",bg="lightgreen",fg="black",width=28)
 clear_btn.place(x=10 , y=290)
 
 #find by all
-fnd_btn=Button(window, text="Find all",bg="green",fg="white",width=28)
+fnd_btn=Button(window, text="Find all",bg="lightgreen",fg="black",width=28)
 fnd_btn.place(x=10 , y=320)
 
 #table
