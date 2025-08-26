@@ -4,13 +4,14 @@ from view.lesson_view import*
 
 
 class Lesson:
-    def __init__(self, id,person_id,code,class_number,teacher,unit):
+    def __init__(self, id,person_id,code,class_number,teacher,unit,title):
         self.id = id
         self.person_id = person_id
         self.code = code
         self.class_number = class_number
         self.teacher = teacher
         self.unit = unit
+        self.title= title
 
     def __repr__(self):
         return f"{self.__dict__}"

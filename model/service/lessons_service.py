@@ -20,7 +20,7 @@ class LessonService:
         return self.repo.delete(id)
 
 
-     def find_by_all(self):
+    def find_by_all(self):
          return self.repo.find_all()
 
 

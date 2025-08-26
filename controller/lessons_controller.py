@@ -1,26 +1,26 @@
 import re
 from model.entity.lesson import Lesson
-from model.service.lesson_service import LessonService
+from model.service.lessons_service  import LessonService
 
 class LessonController:
     def __init__(self):
-        self.service = LessonsService()
+        self.service = LessonService()
 
-    def save(self, id, person_id, title, code, teacher, unit, class_number):
+    def save(self,  person_id, title, code, teacher, unit, class_number):
         try:
             if re.match(r"^[a-zA-Z\s]{3,30}$", title) and re.match(r"^[a-zA-Z\s]{3,30}$", teacher):
-                Lessons = Lessons(None, id, person_id, title, code, teacher, unit, class_number)
+                Lessons = Lesson(None, id, person_id, title, code, teacher, unit, class_number)
                 return True, self.service.save(Lessons)
             else:
                 raise ValueError("Invalid title/teacher")
         except Exception as e:
             return False, f"Error !!! {e}"
 
-    def edit(self, id, person_id, title, code, teacher, unit, class_number):
+    def edit(self, id, person_id, title, code, teacher, units, class_number):
         try:
             if re.match(r"^[a-zA-Z\s]{3,30}$", title) and re.match(r"^[a-zA-Z\s]{3,30}$", teacher):
-                Lessons = Lessons(id, person_id, title, code, teacher, unit, class_number)
-                return True, self.service.edit(Lessons)
+                lessons = Lesson(id, person_id, title, code, teacher, units, class_number)
+                return True, self.service.edit(lessons)
             else:
                 raise ValueError("Invalid title/teacher")
         except Exception as e:

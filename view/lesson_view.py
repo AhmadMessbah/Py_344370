@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter.messagebox as msg
 from tkinter import ttk
 
-from controller.lesson_controller import LessonController
+from controller.lessons_controller import LessonController
 from model.entity.lesson import Lesson
 from view.component.label_with_text import LabelWithText
 
@@ -29,7 +29,7 @@ class LessonView:
     def select_lessons(self, event):
         selected_lessons = self.table.item(self.table.focus())["values"]
         if selected_lessons:
-            lessons = Person(*selected_lessons)
+            lessons = Lesson(*selected_lessons)
             self.id.set(lessons.id)
             self.title.set(lessons.title)
             self.teacher.set(lessons.teacher)
@@ -68,7 +68,7 @@ class LessonView:
             msg.showerror("Error", message)
 
     def __init__(self):
-        self.lessons_controller = PersonController()
+        self.lessons_controller = LessonController()
         self.win = Tk()
         self.win.title("lesson Profile")
         self.win.geometry("600x315")
