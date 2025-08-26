@@ -1,4 +1,4 @@
-from model.repository.payment_repository import *
+#from model.repository.payment_repository import *
 
 #test passed
 #save(116,"noting",1150,"2016","cash","---")
@@ -17,3 +17,6 @@ from model.repository.payment_repository import *
 
 #test passed
 #find_by_payment_type()
+
+#from view.payment_view import PaymentView
+#ui = PaymentView()
