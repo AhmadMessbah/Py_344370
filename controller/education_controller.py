@@ -12,7 +12,7 @@ class EducationController:
     def save(self,person_id, university, grade, average, start_date, end_date):
         try:
             if re.match(r"^[a-zA-Z\s]{3,30}$", university):
-                education=Education(person_id, university, grade, average, start_date, end_date)
+                education=Education(None,person_id, university, grade, average, start_date, end_date)
                 return True, self.service.save(education)
             else:
                 raise ValueError("دانشگاه مورد قبول نیست!!")
