@@ -1,17 +1,19 @@
-from model.entity.marriage import marriage
+from model.entity.marriage import Marriage
+import re
+from model.repository.marriage_repository import MarriageRepository
 from model.service.marriage_service import MarriageService
-
+from view.job_history_view import person_id
 
 
 class MarriageController:
 
     def __init__(self):
-        self.service = PersonService()
+        self.service = MarriageRepository()
 
     def save(self, name, family, age):
         try:
             if re.match(r"^[a-zA-Z\s]{3,30}$", name) and re.match(r"^[a-zA-Z\s]{3,30}$", family):
-                marriage = Person(None, name, family, age)
+                marriage = Marriage(None, name, family, age)
                 return True, self.service.save(marriage)
             else:
                 raise ValueError("Invalid Name/Family")
@@ -21,7 +23,7 @@ class MarriageController:
     def edit(self, id, name, family, age):
         try:
             if re.match(r"^[a-zA-Z\s]{3,30}$", name) and re.match(r"^[a-zA-Z\s]{3,30}$", family):
-                marriage = marriage(id, name, family, age)
+                marriage = Marriage(person_id, name, family)
                 return True, self.service.edit(marriage)
             else:
                 raise ValueError("Invalid Name/Family")

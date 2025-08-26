@@ -33,7 +33,7 @@ class MarriageView:
     def select_Marriage(self, event):
         selected_Marriage = self.table.item(self.table.focus())["values"]
         if selected_Marriage:
-            Marriage = Marriage(*selected_Marriage)
+            marriage = Marriage(*selected_Marriage)
             self.id.set(Marriage.id)
             self.person_id.set(Marriage.person_id)
             self.name.set(Marriage.name)

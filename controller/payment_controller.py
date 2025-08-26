@@ -25,6 +25,7 @@ class PaymentController:
             else:
                 raise ValueError("Invalid Date!!!")
         except Exception as e:
+            e.with_traceback()
             return False, f"Error !!! {e}"
 
     def delete(self, id):

@@ -15,7 +15,7 @@ class PaymentRepository:
         return transaction_manager(
             "update payments set person_id=?, title=?, amount=?, pay_date=?, payment_type=?, description=? where id=?",
             [payment.person_id, payment.title, payment.amount, payment.pay_date, payment.payment_type,
-             payment.description],
+             payment.description, payment.id],
             commit=True
         )
 

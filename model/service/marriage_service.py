@@ -1,9 +1,9 @@
-from model.repository import MarriageRepository
+from model.repository.marriage_repository import MarriageRepository
 
 
 class MarriageService:
     def __init__(self):
-        self.repo = PersonRepository()
+        self.repo = MarriageRepository()
 
     def save(self, marriage):
         return self.repo.save(marriage)

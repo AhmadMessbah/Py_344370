@@ -26,7 +26,7 @@ class PaymentView:
 
         if payment_list:
             for payment in payment_list:
-                self.table.insert("", tk.END, values=payment.to_tuple())
+                self.table.insert("", END, values=payment.to_tuple())
 
     def select_payment(self, event):
         select_payment = self.table.item(self.table.focus())["values"]
