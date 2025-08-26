@@ -1,27 +1,43 @@
-from tkinter.ttk import Entry, Button
-from _tkinter import *
-from tkinter import ttk, Tk, StringVar, IntVar, Label
-from model.repository.medical_repository import *
-from model.tools.validation import *
-from controller.medical_controller import MedicalController
+from tkinter.ttk import *
+from tkinter import ttk, Tk, StringVar, IntVar, Label, messagebox
 
+from appier import message
+from streamlit import status
+
+from controller.medical_controller import MedicalController
+from model.entity.medical import Medical
+from view.component.label_with_text import LabelWithText
 class MedicalView:
 # 6
     def reset_form(self):
-        id.set(0)
-        person_id.set(0)
-        disease.set("")
-        medicine.set("")
-        doctor.set("")
-        visit_date("")
-        status.set("")
+        self.id.set(0)
+        self.person_id.set(0)
+        self.disease.set("")
+        self.medicine.set("")
+        self. doctor.set("")
+        self. visit_date.set("")
+        self.status.set("")
+        status,medical_list=self.medical_controller.find_all()
 
-     def save_click(self):
-        pass
+
+    def show_data_on_table(self,medical_list):
+         for medical in self.table.get_children():
+             self.table.delete(medical)
+
+    def save_click(self):
+        status,message=self.medical_controller.save(self.person_id.get(),self.disease.get(),self.medicine.get(),self.doctor.get(),self.visit_date.get(),self.status.get())
+        if status:
+            messagebox.showinfo("Saved",f"{message} Saved")
+        else:
+            messagebox.showerror("Error",message)
 
 
     def edit_click(self):
-        pass
+        status,message = self.medical_controller.edit(self.person_id.get(),self.disease.get(),self.medicine.get(),self.doctor.get(),self.visit_date.get(),self.status.get())
+        if status:
+            messagebox.showinfo("Edited", f"{message} Edited")
+        else:
+            messagebox.showerror("Error", message)
 
 
 
