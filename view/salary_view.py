@@ -32,7 +32,7 @@ class SalaryView:
             self.id.set(salary.id)
             self.person_id.set(salary.person_id)
             self.pay_for_hours.set(salary.pay_for_hours)
-            self.weekly_hours.set(salary.weekly_hour)
+            self.weekly_hours.set(salary.weekly_hours)
             self.end_date.set(salary.end_date)
             self.employment_type.set(salary.employment_type)
 
@@ -42,7 +42,7 @@ class SalaryView:
             self.show_data_on_table(salary_list)
 
     def save_click(self):
-        status, message = self.salary_controller.save(self.id.get(), self.person_id.get(), self.weekly_hours.get(),
+        status, message = self.salary_controller.save(self.person_id.get(), self.weekly_hours.get(),
                                                       self.pay_for_hours.get(), self.end_date.get(),self.employment_type.get())
         if status:
             msg.showinfo("saved", message)

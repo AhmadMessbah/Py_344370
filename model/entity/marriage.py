@@ -1,5 +1,5 @@
 class Marriage:
-    def __init__(self, id,person_id ,name, family,marriage_date,childes):
+    def __init__(self, id,person_id ,name, family,marriage_date,childes,is_alive):
         self.id = id
         self.person_id = person_id
         self.name = name
@@ -11,4 +11,4 @@ class Marriage:
         return f"{self.__dict__}"
 
     def to_tuple(self):
-        return tuple((self.person_id, self.name, self.family, self.age, self.marriage_date, self.childes))
+        return tuple((self.person_id, self.name, self.family, self.is_alive, self.marriage_date, self.childes))
