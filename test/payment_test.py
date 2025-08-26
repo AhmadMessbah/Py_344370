@@ -18,5 +18,6 @@
 #test passed
 #find_by_payment_type()
 
-#from view.payment_view import PaymentView
-#ui = PaymentView()
+#todo:az ostad beporsam
+from view.payment_view import PaymentView
+ui = PaymentView()
