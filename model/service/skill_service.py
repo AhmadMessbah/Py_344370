@@ -1,39 +1,43 @@
-from model.repository import  skill_repository
+from model.repository.skill_repository import  SkillRepository
 
-def save(person_id,title,institute,duration,register_date,score):
-    if score<=12:
-        raise ValueError("نمره زیر 12 مناسب ثبت نام نیست")
+class SkillService:
+    def __init__(self):
+        self.repo = SkillRepository()
 
-    if score>20:
-        raise ValueError("نمره بالای 20 مناسب ثبت نام نیست")
-
-    return skill_repository.save(person_id,title,institute,duration,register_date,score)
-
-def edit(id,person_id, title, institute,duration,register_date,score):
-    skill=skill_repository.find_by_id(id)
-    if skill:
-        if score<=12:
+    def save(self, skill):
+        if skill.score<=12:
             raise ValueError("نمره زیر 12 مناسب ثبت نام نیست")
 
-        if score > 20:
+        if skill.score>20:
             raise ValueError("نمره بالای 20 مناسب ثبت نام نیست")
 
-        return skill_repository.edit(id,person_id,title,institute,duration,register_date,score)
-    else:
-        raise ValueError("فردی با چنین کدی پیدا نشد !!!")
+        return self.repo.save(skill)
 
-def remove(id):
-    skill = skill_repository.find_by_id(id)
-    if skill:
-        return skill_repository.remove(id)
-    else:
-        raise ValueError("فردی با چنین کدی پیدا نشد !!!")
+    def edit(self, skill):
+        skill=self.repo.find_by_id(id)
+        if skill:
+            if skill.score<=12:
+                raise ValueError("نمره زیر 12 مناسب ثبت نام نیست")
 
-def find_all():
-    return skill_repository.find_all()
+            if skill.score > 20:
+                raise ValueError("نمره بالای 20 مناسب ثبت نام نیست")
 
-def find_by_id(id):
-    return skill_repository.find_by_id(id)
+            return self.repo.edit(skill)
+        else:
+            raise ValueError("فردی با چنین کدی پیدا نشد !!!")
 
-def find_by_title_and_institute(title,institute):
-    return skill_repository.find_by_title_and_institute(title,institute)
+    def delete(self,id):
+        skill = self.repo.find_by_id(id)
+        if skill:
+            return self.repo.delete(id)
+        else:
+            raise ValueError("فردی با چنین کدی پیدا نشد !!!")
+
+    def find_all(self):
+        return self.repo.find_all()
+
+    def find_by_id(self,id):
+        return self.repo.find_by_id(id)
+
+    def find_by_title_and_institute(self,title,institute):
+        return self.repo.find_by_title_and_institute(title,institute)

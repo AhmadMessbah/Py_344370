@@ -2,121 +2,146 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
 
-from controller import education_controller
-
+from controller.education_controller import EducationController
+from model.entity.education import Education
+from view.component.label_with_text import LabelWithText
 
 # id, person_id, university, grade, average, start_date, end_date
-def reset_form():
-    default_id.set(0)
-    person_id.set("")
-    university.set("")
-    average.set(0)
-    start_date.set("")
-    end_date.set("")
-    show_data_on_table(education_controller.find_all())
 
 
-def save_click():
-    pass
+
+class EducationView:
+    def reset_form(self):
+        self.id.set(0)
+        self.person_id.set("")
+        self.university.set("")
+        self.grade.set("")
+        self.average.set(0)
+        self.start_date.set("")
+        self.end_date.set("")
+        status, education_list = self.education_controller.find_all()
+        if status:
+            self.show_data_on_table(education_list)
+
+    def show_data_on_table(self, education_list):
+        for education in self.table.get_children():
+            self.table.delete(education)
+
+        if education_list:
+            for education in education_list:
+                self.table.insert("", END, values=education.to_tuple())
+
+    def select_education(self, event):
+        selected_education = self.table.item(self.table.focus())["values"]
+        if selected_education:
+            education = Education(*selected_education)
+            self.id.set(education.id)
+            self.person_id.set(education.person_id)
+            self.university.set(education.university)
+            self.average.set(education.average)
+            self.grade.set(education.grade)
+            self.start_date.set(education.start_date)
+            self.end_date.set(education.end_date)
+
+    def search_person_id(self, event):
+        status, education_list = self.education_controller.find_by_person_id(self.search_person_id_var.get())
+        if status:
+            self.show_data_on_table(education_list)
+
+    def search_id(self, event):
+        status, education_list = self.education_controller.find_by_id(self.search_id_var.get())
+        if status:
+            self.show_data_on_table(education_list)
+
+    def save_click(self):
+        status,message=self.education_controller.save(self.person_id.get(),
+        self.university.get(),self.grade.get(),self.average.get(),self.start_date.get(),self.end_date.get())
+        if status:
+            messagebox.showinfo("Saved",f"{message} Saved")
+        else:
+            messagebox.showerror("Error",message)
+
+    def edit_click(self):
+        status, message = self.education_controller.save(self.person_id.get(),
+                 self.university.get(), self.grade.get(), self.average.get(),
+                 self.start_date.get(), self.end_date.get())
+        if status:
+            messagebox.showinfo("Edited", f"{message} Edited")
+            self.reset_form()
+        else:
+            messagebox.showerror("Error", message)
+
+    def delete_click(self):
+        status, message = self.education_controller.delete(self.id.get())
+        if status:
+            messagebox.showinfo("Deleted", f"{message} Deleted")
+            self.reset_form()
+        else:
+            messagebox.showerror("Error", message)
 
 
-def edit_click():
-    pass
+
+    def __init__(self):
+        self.education_controller = EducationController()
+        self.window = Tk()
+        self.window.title("Class Info")
+        self.window.geometry("855x450")
+        self.window.resizable(False, False)
+
+        self.id = IntVar()
+        LabelWithText(self.window,"Id",self.id,20,30)
+
+        self.person_id = StringVar()
+        LabelWithText(self.window,"Person ID",self.person_id,20,70)
+
+        self.university = StringVar()
+        LabelWithText(self.window,"University",self.university,20,110)
+
+        self.grade = StringVar()
+        LabelWithText(self.window,"Grade",self.grade,20,150)
+
+        self.average = IntVar()
+        LabelWithText(self.window,"Average",self.average,20,190)
+
+        self.start_date = StringVar()
+        LabelWithText(self.window,"Start Date",self.start_date,20,230)
+
+        self.end_date = StringVar()
+        LabelWithText(self.window,"End Date",self.end_date,20,270)
+
+        Button(self.window, text="Save", width=7,command=self.save_click).place(x=20, y=330)
+        Button(self.window, text="Edit", width=7, command=self.edit_click).place(x=87, y=330)
+        Button(self.window, text="Delete",  width=7,command=self.delete_click).place(x=152, y=330)
+        Button(self.window, text="Clear", width=26,command=self.reset_form).place(x=20, y=370)
 
 
-def delete_click():
-    pass
+        self.search_id_var = StringVar()
+        LabelWithText(self.window,"Search ID",self.search_id_var,250,20).text.bind("<KeyRelease>", self.search_id)
+
+        self.search_person_id_var = StringVar()
+        LabelWithText(self.window,"Search Person ID",self.search_person_id_var,600,20).text.bind("<KeyRelease>", self.search_person_id)
+
+        self.table = ttk.Treeview(self.window, columns=[1, 2, 3, 4,5,6,7], show="headings",height=15)
+        self.table.heading(1, text="Id")
+        self.table.heading(2, text="Person Id")
+        self.table.heading(3, text="University")
+        self.table.heading(4, text="Grade")
+        self.table.heading(5, text="Average")
+        self.table.heading(6, text="Start Date")
+        self.table.heading(7, text="End Date")
+
+        self.table.column(1, width=70)
+        self.table.column(2, width=110)
+        self.table.column(3, width=110)
+        self.table.column(4, width=70)
+        self.table.column(5, width=70)
+        self.table.column(6, width=70)
+        self.table.column(7, width=70)
+
+        self.table.bind("<<TreeviewSelect>>", self.select_education)
+        self.table.place(x=240, y=70)
+
+        self.window.mainloop()
 
 
-def search_person():
-    pass
 
-
-def show_data_on_table(table):
-    pass
-
-
-def select():
-    pass
-
-
-window = Tk()
-window.title("Class Info")
-window.geometry("855x450")
-window.resizable(False, False)
-
-# id
-default_id = IntVar()
-Label(window, text="Id").place(x=20, y=30)
-Entry(window, textvariable=default_id, state="readonly").place(x=86, y=30)
-
-# person_id
-person_id = StringVar()
-Label(window, text="Person Id").place(x=20, y=70)
-Entry(window, textvariable=person_id).place(x=86, y=70)
-
-# university
-university = StringVar()
-Label(window, text="University").place(x=20, y=110)
-Entry(window, textvariable=university).place(x=86, y=110)
-
-# grade
-grade = StringVar()
-Label(window, text="Grade").place(x=20, y=150)
-Entry(window, textvariable=grade).place(x=86, y=150)
-
-# average
-average = IntVar()
-Label(window, text="Average").place(x=20, y=190)
-Entry(window, textvariable=average).place(x=86, y=190)
-
-# start_date
-start_date = StringVar()
-Label(window, text="Start Date").place(x=20, y=230)
-Entry(window, textvariable=start_date).place(x=86, y=230)
-
-# end_date
-end_date = StringVar()
-Label(window, text="End Date").place(x=20, y=270)
-Entry(window, textvariable=end_date).place(x=86, y=270)
-
-# buttons
-Button(window, text="Save", command=save_click, width=7).place(x=20, y=330)
-Button(window, text="Edit", command=edit_click, width=7).place(x=87, y=330)
-Button(window, text="Delete", command=delete_click, width=7).place(x=152, y=330)
-Button(window, text="Clear", command=search_person, width=26).place(x=20, y=370)
-
-# search by name
-search_name = StringVar()
-Label(window, text="Search Name").place(x=250, y=20)
-Entry(window, textvariable=search_name).place(x=340, y=20)
-
-# search by grade
-search_grade = StringVar()
-Label(window, text="Search Grade").place(x=610, y=20)
-Entry(window, textvariable=search_grade).place(x=700, y=20)
-
-# table
-table = ttk.Treeview(window, height=15,columns=("id", "person_id", "university", "grade", "average", "start_date", "end_date"),show="headings")
-
-table.column("id", width=82)
-table.column("person_id", width=82)
-table.column("university", width=82)
-table.column("grade", width=82)
-table.column("average", width=82)
-table.column("start_date", width=82)
-table.column("end_date", width=82)
-
-table.heading("id", text="Id")
-table.heading("person_id", text="Person Id")
-table.heading("university", text="University")
-table.heading("grade", text="Grade")
-table.heading("average", text="Average")
-table.heading("start_date", text="Start Date")
-table.heading("end_date", text="End Date")
-
-table.bind("<<TreeviewSelect>>", select)
-table.place(x=252, y=70)
-
-reset_form()
-window.mainloop()

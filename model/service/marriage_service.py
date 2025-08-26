@@ -1,21 +1,24 @@
-from model.repository import marriage_repository
-
-def save(person_id, name, family, marriage_date, is_alive, childes):
-    return marriage_repository.save(person_id, name, family, marriage_date,is_alive,childes)
+from model.repository.marriage_repository import MarriageRepository
 
 
-def edit(id, person_id, name, family, marriage_date, is_alive, childes):
-    return marriage_repository.edit(id,person_id, name, family, marriage_date,is_alive,childes)
+class MarriageService:
+    def __init__(self):
+        self.repo = MarriageRepository()
 
+    def save(self, marriage):
+        return self.repo.save(marriage)
 
-def remove(id):
-    pass
+    def edit(self, marriage):
+        return self.repo.edit(marriage)
 
-def find_all():
-    pass
+    def delete(self, id):
+        return self.repo.delete(id)
 
-def find_by_id(id):
-    pass
+    def find_all(self):
+        return self.repo.find_all()
 
-def find_by_name_and_family(family,name):
-    pass
+    def find_by_id(self, id):
+        return self.repo.find_by_id(id)
+
+    def find_by_name_and_family(self,name,family):
+        return self.repo.find_by_name_and_family(name,family)

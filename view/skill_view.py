@@ -1,134 +1,152 @@
 from tkinter import *
-from tkinter import messagebox
+import tkinter.messagebox as msg
 from tkinter import ttk
-from warnings import showwarning
 
-from typing_extensions import ReadOnly
-
-from model.repository.skill_repository import *
-
-def reset_form():
-    id.set(0)
-    person_id.set("")
-    title.set("")
-    institute.set("")
-    duration.set("")
-    register_date.set("")
-    score.set(0)
-
-def show_data_on_table():
-    pass
-def save_click():
-    pass
-
-def edit_click():
-    pass
-
-def remove_click():
-    pass
+from controller.skill_controller import SkillController
+from model.entity.skill import Skill
+from view.component.label_with_text import LabelWithText
 
 
-def table_select(event):
-    pass
+class SkillView:
+    def reset_form(self):
+        self.id.set(0)
+        self.person_id.set("")
+        self.title.set("")
+        self.institute.set("")
+        self.duration.set("")
+        self.register_date.set("")
+        self.score.set(0)
+        status, skill_list= self.skill_controller.find_all()
+        if status:
+            self.show_data_on_table(skill_list)
+
+    def show_data_on_table(self, skill_list):
+        for item in self.table.get_children():
+            self.table.delete(item)
+
+        if skill_list:
+            for skill in skill_list:
+                self.table.insert("", END, values=skill.to_tuple())
+
+    def select_skill(self, event):
+        selected_skill = self.table.item(self.table.focus())["values"]
+        if selected_skill:
+            skill = Skill(*selected_skill)
+            self.id.set(skill.id)
+            self.person_id.set(skill.person_id)
+            self.title.set(skill.title)
+            self.institute.set(skill.institute)
+            self.duration.set(skill.duration)
+            self.register_date.set(skill.register_date)
+            self.score.set(skill.score)
+
+    def search(self, event):
+        status, skill_list = self.skill_controller.find_by_title_and_institute(self.search_title.get(), self.search_institute.get())
+
+        if status:
+            self.show_data_on_table(skill_list)
+
+    def save_click(self):
+        # todo:از استاد بپرسم
+        status, message = self.skill_controller.save(self.person_id.get(), self.title.get(), self.institute.get(),self.duration.get(),self.register_date.get(),self.score.set())
+        if status:
+            msg.showinfo("Saved", f"{message} Saved")
+            self.reset_form()
+        else:
+            msg.showerror("Error", message)
+
+    def edit_click(self):
+        status, message = self.skill_controller.edit(self.id.get(),self.person_id.get(), self.title.get(), self.institute.get(),self.duration.get(),self.register_date.get(),self.score.get())
+        if status:
+            msg.showinfo("Edited", f"message Edited")
+            self.reset_form()
+        else:
+            msg.showerror("Error", message)
+
+    def delete_click(self):
+        status, message = self.skill_controller.delete(self.id.get())
+        if status:
+            msg.showinfo("Deleted", f"message Deleted")
+            self.reset_form()
+        else:
+            msg.showerror("Error", message)
+
+    # def close_window(self):
+    #     if msg.askyesno("Exit", "Are you sure ?"):
+    #         self.win.destroy()
+
+    def __init__(self):
+        self.skill_controller = SkillController()
+        self.win = Tk()
+        self.win.title("Skill")
+        self.win.resizable(width=False, height=False)
+        self.win.geometry("880x400")
+
+        # id
+        self.id = IntVar()
+        LabelWithText(self.win, "Id", self.id, 20, 20, "readonly")
+
+        # person id
+        self.person_id = IntVar()
+        LabelWithText(self.win, "Person id", self.person_id, 20, 60)
+
+        # title
+        self.title = StringVar()
+        LabelWithText(self.win, "Title", self.title, 20, 100)
+
+        # institute
+        self.institute = StringVar()
+        LabelWithText(self.win, "Institute", self.institute, 20, 140)
+
+        # duration
+        self.duration = StringVar()
+        LabelWithText(self.win, "Duration", self.duration, 20, 180)
+
+        # register date
+        self.register_date = StringVar()
+        LabelWithText(self.win, "Register date", self.register_date, 20, 220)
+
+        # score
+        self.score = IntVar()
+        LabelWithText(self.win, "Score", self.score, 20, 260)
+
+        # search title
+        self.search_title = StringVar()
+        LabelWithText(self.win, "Search title", self.search_title, 250, 20).text.bind("<KeyRelease>",self.search)
+
+        # search institute
+        self.search_institute = StringVar()
+        LabelWithText(self.win, "Search institute", self.search_institute, 550, 20).text.bind("<KeyRelease>",self.search)
+
+        #table
+        self.table = ttk.Treeview(self.win, height=14, columns=[1, 2, 3, 4, 5, 6, 7], show="headings")
+        self.table.heading(1, text="Id ")
+        self.table.heading(2, text="Person id")
+        self.table.heading(3, text="Title")
+        self.table.heading(4, text="Institute")
+        self.table.heading(5, text="Duration")
+        self.table.heading(6, text="Register date")
+        self.table.heading(7, text="Score")
+
+        self.table.column(1, width=70)
+        self.table.column(2, width=100)
+        self.table.column(3, width=100)
+        self.table.column(4, width=80)
+        self.table.column(5, width=80)
+        self.table.column(6, width=100)
+        self.table.column(7, width=80)
+
+        self.table.bind("<<TreeviewSelect>>", self.select_skill)
+        self.table.place(x=250, y=60)
 
 
-def close_window():
-    if messagebox.askyesno("Exit", "Are you sure ?"):
-        win.destroy()
+        # Buttons (Clear-Save-Edit-Remove)
+        Button(self.win, text="New Skill", command=self.reset_form,width=28).place(x=20,y=300)
+        Button(self.win, text="Save", command=self.save_click, width=7).place(x=20,y=340)
+        Button(self.win, text="Edit", command=self.edit_click, width=7).place(x=95,y=340)
+        Button(self.win, text="Remove", command=self.delete_click, width=7).place(x=170,y=340)
 
+        self.reset_form()
+        self.win.mainloop()
 
-def search_skill(event):
-    pass
-
-win = Tk()
-win.title("Skill")
-win.resizable(width=False, height=False)
-win.geometry("880x400")
-
-
-# id
-id=IntVar()
-Label(win,text="Id").place(x=20,y=20)
-Entry(win, textvariable=id).place(x=100,y=20)
-
-# person id
-person_id=IntVar()
-Label(win,text="Person id").place(x=20,y=60)
-Entry(win, textvariable=person_id).place(x=100,y=60)
-
-# title
-title=StringVar()
-Label(win,text="Title").place(x=20,y=100)
-Entry(win, textvariable=title).place(x=100,y=100)
-
-# institute
-institute=StringVar()
-Label(win,text="Institute").place(x=20,y=140)
-Entry(win, textvariable=institute).place(x=100,y=140)
-
-# duration
-duration=StringVar()
-Label(win,text="Duration").place(x=20,y=180)
-Entry(win, textvariable=duration).place(x=100,y=180)
-
-# register date
-register_date=StringVar()
-Label(win,text="Register date").place(x=20,y=220)
-Entry(win, textvariable=register_date).place(x=100,y=220)
-
-# score
-score=IntVar()
-Label(win,text="Score").place(x=20,y=260)
-Entry(win, textvariable=score).place(x=100,y=260)
-
-
-# Buttons (Save-Edit-Remove)
-Button(win, text="Clear", command=reset_form, width=29).place(x=20,y=300)
-Button(win, text="Save", command=save_click, width=7).place(x=20,y=340)
-Button(win, text="Edit", command=edit_click, width=7).place(x=95,y=340)
-Button(win, text="Remove", command=remove_click, width=7).place(x=170,y=340)
-
-# Search id
-id_search = IntVar()
-Label(win,text="Search Id").place(x=250,y=20)
-id_search_txt = Entry(win, textvariable=id_search)
-id_search_txt.bind("<KeyRelease>", )
-id_search_txt.place(x=325,y=20)
-
-# Search title and institute
-title_institute_search = StringVar()
-Label(win,text="Search title and institute").place(x=550,y=20)
-title_institute_search = Entry(win, textvariable=title_institute_search)
-title_institute_search.bind("<KeyRelease>", )
-title_institute_search.place(x=715,y=20)
-
-
-
-table = ttk.Treeview(win, height=14,columns=(1,2,3,4,5,6,7),show="headings")
-table.column(1, width=70)
-table.column(2, width=100)
-table.column(3, width=100)
-table.column(4, width=80)
-table.column(5, width=80)
-table.column(6, width=80)
-table.column(7, width=80)
-
-table.heading(1, text="Id ")
-table.heading(2, text="Person id")
-table.heading(3, text="Title")
-table.heading(4, text="Institute")
-table.heading(5, text="Duration")
-table.heading(6, text="Register date")
-table.heading(7, text="Score")
-
-
-table.bind("<<TreeviewSelect>>", )
-
-table.place(x=250, y = 60)
-
-
-win.protocol("WM_DELETE_WINDOW",  close_window)
-
-reset_form()
-
-win.mainloop()
+        # self.win.protocol("WM_DELETE_WINDOW",  self.close_window)

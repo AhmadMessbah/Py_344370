@@ -1,22 +1,23 @@
 from model.repository.job_history_repository import JobRepository
 
+class JobHistoryService:
+    def __init__(self):
+        self.repo = JobRepository()
 
+    def save(self, job_history):
+        return self.repo.save(job_history)
 
+    def edit(self, job_history):
+        return self.repo.edit(job_history)
 
-def save(person_id, organisation, job_title, start_date, end_date, description):
-    job_history_repository.save(person_id, organisation, job_title, start_date, end_date, description)
+    def delete(self, id):
+        return self.repo.delete(id)
 
-def edit(id, person_id, organisation, job_title, start_date, end_date, description):
-    job_history_repository.edit(id, organisation, job_title, start_date, end_date, description)
+    def find_all(self):
+        return self.repo.find_all()
 
-def delete(id):
-    job_history_repository.delete(id)
+    def find_by_id(self, id):
+        return self.repo.find_by_id(id)
 
-def find_all():
-    job_history_repository.find_all()
-
-def find_by_id(id):
-    job_history_repository.find_by_id(id)
-
-def find_by_job_title(job_title):
-    job_history_repository.find_by_job_title(job_title)
+    def find_by_job_title(self, job_title):
+        return self.repo.find_by_job_title(job_title)

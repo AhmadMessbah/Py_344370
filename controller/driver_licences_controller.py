@@ -1,56 +1,71 @@
-from model.service import driver_licences_service
+from model.service.driver_licences_service import *
+import re
 
-def save(person_id,serial,licence_type ,city,registered_date,expired_date):
-    try:
-        driver_licences_service.save(person_id, serial, licence_type, city, registered_date, expired_date)
-        return True,"info : person saved successfully"
 
-    except Exception as e:
-        return False,f"Error:{e}"
+class DriverLicencesController:
+    def __init__(self):
+        self.service = DriverLicencesService()
 
-def edit(id,person_id,licence_type ,city,registered_date,expired_date):
-    try:
-        person=driver_licences_service.find_by_id(id)
-        if person:
-            driver_licences_service.edit(person_id, licence_type, city, registered_date, expired_date, id)
-            return True,"info : person edited successfully"
-        else:
-            raise ValueError ("person not found")
+    def save(self, person_id, serial, license_type, city, register_date, expire_date):
+        try:
+            if re.match(r"^[a-z\s]{3,30}$", city, re.I):
+                driver_licence = DriverLicence(None, person_id, serial, license_type, city, register_date, expire_date)
+                return True, self.service.save(driver_licence)
+            else:
+                raise ValueError("letters not correct for city")
 
-    except Exception as e:
-        return False,f"Error:{e}"
+        except Exception as e:
+            e.with_traceback()
+            return False, f"Error!!:{e}"
 
-def remove(id):
-    try:
-        person = driver_licences_service.find_by_id(id)
-        driver_licences_service.remove(id)
-        if person:
-            return True,"info : person removed successfully"
-        else:
-            raise ValueError("person not found")
+    def edit(self, id, person_id, serial, license_type, city, register_date, expire_date):
+        try:
+            if re.match(r"^[a-z\s]{3,30}$", city, re.I):
+                driver_licence = DriverLicence(id, person_id, serial, license_type, city, register_date, expire_date)
+                return True, self.service.edit(driver_licence)
+            else:
+                raise ValueError("letters not correct for city")
 
-    except Exception as e:
-        return False,f"Error:{e}"
+        except Exception as e:
+            return False, f"Error!!:{e}"
 
-def find_all():
-    try:
-        return True,driver_licences_service.find_all()
+    def delete(self, id):
+        try:
+            return self.service.delete(id)
 
-    except Exception as e:
-        return False,f"Error:{e}"
+        except Exception as e:
+            return False, f"Error!!:{e}"
 
-def find_by_id(id):
-    try:
-        person = driver_licences_service.find_by_id(id)
-        if person:
-            return True,driver_licences_service.find_by_id(id)
-        else:
-            raise ValueError("person not found")
+    def find_by_id(self, id):
+        try:
+            licence_info = self.service.find_by_id(id)
+            if licence_info:
+                return True, licence_info
+            else:
+                raise ValueError("licence information for this id not found")
 
-    except Exception as e:
-        return False,f"Error:{e}"
+        except Exception as e:
+            return False, f"Error!!:{e}"
 
-def find_by_serial(serial):
-    return True,driver_licences_service.find_by_serial(serial)
+    def find_by_serial(self, serial):
+        try:
+            licence_info = self.service.find_by_serial(serial)
+            if licence_info:
+                return True, licence_info
+            else:
+                raise ValueError("licence information for this serial not found")
 
+        except Exception as e:
+            return False, f"Error!!:{e}"
+
+    def find_by_all(self):
+        try:
+            licence_info = self.service.find_all()
+            if licence_info:
+                return True, licence_info
+            else:
+                raise ValueError("licence information for this licence not found")
+
+        except Exception as e:
+            return False, f"Error!!:{e}"
 

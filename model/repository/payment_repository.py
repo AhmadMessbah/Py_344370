@@ -1,4 +1,5 @@
 from model.repository.database_manager import transaction_manager
+from model.entity.payment import Payment
 
 
 class PaymentRepository:
@@ -14,7 +15,7 @@ class PaymentRepository:
         return transaction_manager(
             "update payments set person_id=?, title=?, amount=?, pay_date=?, payment_type=?, description=? where id=?",
             [payment.person_id, payment.title, payment.amount, payment.pay_date, payment.payment_type,
-             payment.description],
+             payment.description, payment.id],
             commit=True
         )
 
@@ -26,17 +27,23 @@ class PaymentRepository:
         )
 
     def find_all(self):
-        return transaction_manager(
+        payment_list = transaction_manager(
             "select * from payments",
         )
+        payment_list = list(map(lambda payment: Payment(*payment), payment_list))
+        return payment_list
 
     def find_by_id(self, id):
-        return transaction_manager(
+        payment = transaction_manager(
             "select * from payments where id=?",
         )
+        payment = Payment(*payment)
+        return payment
 
     def find_by_payment_type(self, payment_type):
-        return transaction_manager(
-            "select * from payments where payment_type like ?",
+        payment_list = transaction_manager(
+            "select * from payments where payment_type like ? ",
             [payment_type + "%"],
         )
+        payment_list = list(map(lambda payment: Payment(*payment), payment_list))
+        return payment_list
