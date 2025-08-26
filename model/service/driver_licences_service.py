@@ -1,31 +1,37 @@
-from model.repository import driver_licences_repository
+from model.repository.driver_licences_repository import *
 
-def save(person_id,serial,licence_type ,city,registered_date,expired_date):
-    return driver_licences_repository.save(
-        person_id,serial,licence_type,city,registered_date,expired_date )
-
-def edit(id,person_id,serial,licence_type,city,registered_date,expired_date):
-    person = driver_licences_repository.find_by_id(id)
-    if person:
-        return driver_licences_repository.edit(
-               person_id,serial,licence_type,city,registered_date,expired_date,id )
-    else:
-        raise ValueError("Person not foud")
-
-def remove(id):
-    person = driver_licences_repository.find_by_id(id)
-    if person:
-        return driver_licences_repository.remove(id)
-    else:
-        raise ValueError("Person not foud")
-
-def find_all():
-    return driver_licences_repository.find_all()
-
-def find_by_id(id):
-    return driver_licences_repository.find_by_id(id)
-
-def find_by_serial(serial):
-    return driver_licences_repository.find_by_serial(serial)
+class DriverLicencesService:
+    def __init__(self):
+        self.repo = DriverLicencesRepository()
 
 
+    def save(self, driver_licence):
+          return self.repo.save(driver_licence)
+
+
+    def edit(self, driver_licence):
+        licence_info = self.repo.find_by_id(id)
+        if licence_info:
+            return self.repo.edit(driver_licence)
+        else:
+            raise ValueError("licence information for this id not found")
+
+
+    def delete(self,id):
+        licence_info = self.repo.find_by_id(id)
+        if licence_info:
+            return self.repo.delete(id)
+        else:
+            raise ValueError("licence information for this id not found")
+
+
+    def find_by_id(self,id):
+        return self.repo.find_by_id(id)
+
+
+    def find_by_serial(self,serial):
+        return self.repo.find_by_serial(serial)
+
+
+    def find_all(self):
+        return self.repo.find_all()
