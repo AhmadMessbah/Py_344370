@@ -6,6 +6,8 @@ from model.entity.childs import Child
 from openpyxl.workbook import child
 from streamlit import status
 
+from view.component.label_with_text import LabelWithText
+
 
 class Childs_View:
     def save_click(self ):
@@ -59,6 +61,16 @@ class Childs_View:
         self.win =Tk
         self.win.title=("child profile")
         self.win.geometry("880x400")
+
+        self.id=IntVar
+        LabelWithText(self.win , "id" , self.id, 20,20,"readonly" )
+        self.person_id=StringVar
+        self.name=StringVar
+        self.family=StringVar
+        self.birth_date=StringVar
+        self.status=StringVar
+
+
 
 
 
