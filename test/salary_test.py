@@ -24,3 +24,9 @@ from model.service.salary_service import *
 
 #test is ok
 #print(find_by_employment_type()
+
+
+# ui test
+from view.salary_view import SalaryView
+
+ui = SalaryView()

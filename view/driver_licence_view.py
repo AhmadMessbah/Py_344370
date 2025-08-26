@@ -1,6 +1,6 @@
 from tkinter import *
-from tkinter.ttk import *
-import messagebox as msg
+import tkinter.ttk as ttk
+from tkinter import messagebox as msg
 from view.component.label_with_text import LabelWithText
 from controller.driver_licences_controller import *
 
