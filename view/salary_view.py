@@ -32,7 +32,7 @@ class SalaryView:
             self.id.set(salary.id)
             self.person_id.set(salary.person_id)
             self.pay_for_hours.set(salary.pay_for_hours)
-            self.weekly_hours.set(salary.weekly_hour)
+            self.weekly_hours.set(salary.weekly_hours)
             self.end_date.set(salary.end_date)
             self.employment_type.set(salary.employment_type)
 

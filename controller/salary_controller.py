@@ -10,8 +10,9 @@ class SalaryController:
 
     def save(self, person_id, weekly_hours, pay_for_hours, end_date, employment_type):
         try:
-            if re.match(r"^[0-9]{4}$", person_id):
+            if re.match(r"^[0-9]{4}$", str(person_id)):
                 salary = Salary(None, person_id, weekly_hours, pay_for_hours, end_date, employment_type)
+
                 self.salary_service.save(salary)
                 return True, "info: saved successfully"
             else:
@@ -21,13 +22,14 @@ class SalaryController:
 
     def edit(self, id, person_id, weekly_hours, pay_for_hours, end_date, employment_type):
         try:
-            if re.match(r"^[0-9]{4}$", person_id):
+            if re.match(r"^[0-9]{4}$", str(person_id)):
                 salary = Salary(id, person_id, weekly_hours, pay_for_hours, end_date, employment_type)
                 self.salary_service.edit(salary)
                 return True, "info: edit successfully"
             else:
                 raise ValueError("Invalid person id")
         except Exception as e:
+            e.with_traceback()
             return False, f"error: {e}"
 
     def delete(self, id):
