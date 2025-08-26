@@ -11,4 +11,4 @@ class Salary:
         return f"{self.__dict__}"
 
     def to_tuple(self):
-        return tuple((self.id, self.person_id, self.weekly_hour, self.pay_for_hours, self.end_date, self.employment_type))
+        return tuple(self.__dict__.values())
