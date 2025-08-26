@@ -42,7 +42,7 @@ class SalaryView:
             self.show_data_on_table(salary_list)
 
     def save_click(self):
-        status, message = self.salary_controller.save(self.id.get(), self.person_id.get(), self.weekly_hours.get(),
+        status, message = self.salary_controller.save(self.person_id.get(), self.weekly_hours.get(),
                                                       self.pay_for_hours.get(), self.end_date.get(),self.employment_type.get())
         if status:
             msg.showinfo("saved", message)
