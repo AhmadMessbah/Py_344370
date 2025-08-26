@@ -15,7 +15,6 @@ class DriverLicencesController:
                 raise ValueError("letters not correct for city")
 
         except Exception as e:
-            e.with_traceback()
             return False, f"Error!!:{e}"
 
     def edit(self, id, person_id, serial, license_type, city, register_date, expire_date):

@@ -1,117 +1,108 @@
 from tkinter import *
-import tkinter.messagebox as msg
 from tkinter import ttk
-
-from controller.military_card_controller import MilitaryCardController
-from model.entity.military_card import MilitaryCard
-from view.component.label_with_text import LabelWithText
+from tkinter.messagebox import *
 
 
-class MilitaryCardView:
-    def reset_form(self):
-        self.id.set(0)
-        self.person_id.set("")
-        self.card_serial.set("")
-        self.licence_type.set("")
-        self.city.set("")
-        self.card_serial.set("")
-        self.card_serial.set("")
+window = Tk()
+window.geometry("730x390")
+window.title("Military Card")
+window.configure(bg="lightblue")
 
-        status, MilitaryCard_list = self.military_card_controller.find_all()
-        if status:
-            self.show_data_on_table(MilitaryCard_list)
+#id
+id_panel = Label(window, text="ID",bg="lightblue")
+id_panel.place(x=10 , y=10)
+ID=IntVar()
+id_panel_EN=Entry(window, textvariable=ID,state="disabled",bg="lightpink")
+id_panel_EN.place(x=92 , y=10)
 
-    def show_data_on_table(self, person_list):
-        for item in self.table.get_children():
-            self.table.delete(item)
+#person_id
+person_id_panel = Label(window, text="Person_ID",bg="lightblue")
+person_id_panel.place(x=10 , y=50)
+Person_ID=StringVar()
+person_id_panel_EN= Entry(window, textvariable=Person_ID,bg="lightpink")
+person_id_panel_EN.place(x=92 , y=50)
 
-        if person_list:
-            for person in person_list:
-                self.table.insert("", END, values= person.to_tuple())
+#card_serial
+card_serial_panel = Label(window, text="card_Serial",bg="lightblue")
+card_serial_panel.place(x=10 , y=90)
+card_serial=StringVar()
+card_serial_panel_EN= Entry(window, textvariable=card_serial,bg="lightpink")
+card_serial_panel_EN.place(x=92 , y=90)
 
-    def select_person(self, event):
-        selected_person = self.table.item(self.table.focus())["values"]
-        if selected_person:
-            person = Person(*selected_person)
-            self.id.set(person.id)
-            self.name.set(person.name)
-            self.family.set(person.family)
-            self.age.set(person.age)
-
-
-    def search(self, event):
-        status, person_list = self.person_controller.find_by_name_and_family(self.search_name.get(), self.search_family.get())
-        if status:
-            self.show_data_on_table(person_list)
-
-    def save_click(self):
-        status, message = self.person_controller.save(self.name.get() ,self.family.get(), self.age.get())
-        if status:
-            msg.showinfo("Saved", f"{message} Saved")
-            self.reset_form()
-        else:
-            msg.showerror("Error", message)
-
-    def edit_click(self):
-        status, message = self.person_controller.edit(self.id.get(), self.name.get() ,self.family.get(), self.age.get())
-        if status:
-            msg.showinfo("Edited", f"message Edited")
-            self.reset_form()
-        else:
-            msg.showerror("Error", message)
+#licence_type
+license_type_panel = Label(window, text="License_Type",bg="lightblue")
+license_type_panel.place(x=10 , y=130)
+license_type=StringVar()
+license_type_panel_EN= Entry(window, textvariable=license_type,bg="lightpink")
+license_type_panel_EN.place(x=92 , y=130)
 
 
-    def delete_click(self):
-        status, message = self.person_controller.delete(self.id.get())
-        if status:
-            msg.showinfo("Deleted", f"message Deleted")
-            self.reset_form()
-        else:
-            msg.showerror("Error", message)
+#city
+city_panel = Label(window, text="City",bg="lightblue")
+city_panel.place(x=10 , y=170)
+city=StringVar()
+city_panel_EN= Entry(window, textvariable=city,bg="lightpink")
+city_panel_EN.place(x=92 , y=170)
 
-    def __init__(self):
-        self.person_controller = PersonController()
-        self.win= Tk()
-        self.win.title("Person Profile")
-        self.win.geometry("600x315")
+#organisation
+organisation_panel = Label(window, text="Organisation",bg="lightblue")
+organisation_panel.place(x=10 , y=210)
+organisation=StringVar()
+organisation_panel_EN= Entry(window, textvariable=organisation,bg="lightpink")
+organisation_panel_EN.place(x=92 , y=210)
 
-        self.id = IntVar()
-        LabelWithText(self.win, "Id", self.id, 20,20)
+# duration
+duration_panel = Label(window, text="Expire_Date",bg="lightblue")
+duration_panel.place(x=10 , y=250)
+duration=StringVar()
+duration_panel_EN= Entry(window, textvariable=duration,bg="lightpink")
+duration_panel_EN.place(x=92 , y=250)
 
-        self.name = StringVar()
-        LabelWithText(self.win, "Name", self.name, 20,60)
+#find by id
+id_founder_panel = Label(window, text="ID Founder :",bg="lightblue")
+id_founder_panel.place(x=250 , y=10)
+id_founder=StringVar()
+id_founder_panel_EN= Entry(window, textvariable=id_founder,bg="lightpink")
+id_founder_panel_EN.place(x=325 , y=10)
 
-        self.family= StringVar()
-        LabelWithText(self.win, "Family", self.family, 20,100)
-
-        self.age = IntVar()
-        LabelWithText(self.win, "Age", self.age, 20,140)
-
-        self.search_name = StringVar()
-        LabelWithText(self.win, "Name Search", self.search_name, 220, 20).text.bind("<KeyRelease>", self.search)
-
-        self.search_family = StringVar()
-        LabelWithText(self.win, "Family Search", self.search_family, 410, 20).text.bind("<KeyRelease>", self.search)
-
-        self.table = ttk.Treeview(self.win, columns=[1,2,3,4], show="headings")
-        self.table.heading(1, text="Id")
-        self.table.heading(2, text="Name")
-        self.table.heading(3, text="Family")
-        self.table.heading(4, text="Age")
-
-        self.table.column(1, width=70)
-        self.table.column(2, width=110)
-        self.table.column(3, width=110)
-        self.table.column(4, width=70)
-
-        self.table.bind("<<TreeviewSelect>>", self.select_person)
-        self.table.place(x=220, y=60)
+#find by card_serial
+card_serial_founder_panel = Label(window, text="Card_serial Founder :",bg="lightblue")
+card_serial_founder_panel.place(x=468, y=10)
+card_serial_found=StringVar()
+card_serial_founder_panel_EN= Entry(window, textvariable=card_serial_found,bg="lightpink")
+card_serial_founder_panel_EN.place(x=590, y=10)
 
 
-        Button(self.win, text="New Person", width=23,command=self.reset_form).place(x=20,y=220)
-        Button(self.win, text="Save", width=6,command=self.save_click).place(x=20,y=260)
-        Button(self.win, text="Edit", width=6,command=self.edit_click).place(x=80,y=260)
-        Button(self.win, text="Delete", width=6,command=self.delete_click).place(x=140,y=260)
+#buttons
+save_btn=Button(window, text="Save",bg="lightgreen",fg="black",width=8)
+save_btn.place(x=10 , y=350)
+edit_btn=Button(window, text="Edit",bg="lightgreen",fg="black",width=8)
+edit_btn.place(x=80 , y=350)
+remove_btn=Button(window, text="Remove",bg="lightgreen",fg="black",width=8)
+remove_btn.place(x=150 , y=350)
+clear_btn=Button(window, text="Clear",bg="lightgreen",fg="black",width=28)
+clear_btn.place(x=10 , y=290)
 
-        self.reset_form()
-        self.win.mainloop()
+#find by all
+fnd_btn=Button(window, text="Find all",bg="lightgreen",fg="black",width=28)
+fnd_btn.place(x=10 , y=320)
+
+#table
+table=ttk.Treeview(window,height=15,columns=(1,2,3,4,5,6),show="headings")
+table.heading(1, text="ID")
+table.heading(2, text="card_Serial")
+table.heading(3, text="License Type")
+table.heading(4, text="City")
+table.heading(5, text="Organisation")
+table.heading(6, text="Duration")
+
+table.column(1,width=70, anchor="center")
+table.column(2,width=70, anchor="center")
+table.column(3,width=85, anchor="center")
+table.column(4,width=70, anchor="center")
+table.column(5,width=85, anchor="center")
+table.column(6,width=85, anchor="center")
+
+
+table.place(x=250,y=50)
+window.mainloop()
