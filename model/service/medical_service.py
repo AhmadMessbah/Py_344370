@@ -14,8 +14,8 @@ class MedicalService:
         return self.repo.edit(medical)
 
 
-    def delete(self,id):
-        return self.repo.delete(id)
+    def remove(self,id):
+        return self.repo.remove(id)
 
 
     def find_all(self):
@@ -26,5 +26,5 @@ class MedicalService:
         return self.repo.find_by_id(id)
 
 
-    def find_by_name_and_family(self,name,family):
-        return self.repo.find_by_name_and_family(name,family)
+    def find_by_person_id(self,person_id):
+        return self.repo.find_by_person_id(person_id)
