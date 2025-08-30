@@ -58,11 +58,12 @@ class EducationView:
         self.university.get(),self.grade.get(),self.average.get(),self.start_date.get(),self.end_date.get())
         if status:
             messagebox.showinfo("Saved",f"{message} Saved")
+            self.reset_form()
         else:
             messagebox.showerror("Error",message)
 
     def edit_click(self):
-        status, message = self.education_controller.save(self.person_id.get(),
+        status, message = self.education_controller.edit(self.id.get(),self.person_id.get(),
                  self.university.get(), self.grade.get(), self.average.get(),
                  self.start_date.get(), self.end_date.get())
         if status:
@@ -84,7 +85,7 @@ class EducationView:
     def __init__(self):
         self.education_controller = EducationController()
         self.window = Tk()
-        self.window.title("Class Info")
+        self.window.title("Education Info")
         self.window.geometry("855x450")
         self.window.resizable(False, False)
 
@@ -100,7 +101,7 @@ class EducationView:
         self.grade = StringVar()
         LabelWithText(self.window,"Grade",self.grade,20,150)
 
-        self.average = IntVar()
+        self.average = DoubleVar()
         LabelWithText(self.window,"Average",self.average,20,190)
 
         self.start_date = StringVar()
@@ -141,6 +142,7 @@ class EducationView:
         self.table.bind("<<TreeviewSelect>>", self.select_education)
         self.table.place(x=240, y=70)
 
+        self.reset_form()
         self.window.mainloop()
 
 
