@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter.messagebox as msg
 from tkinter import ttk
 
-from controller.lessons_controller import LessonController
+from controller.lesson_controller import LessonController
 from model.entity.lesson import Lesson
 from view.component.label_with_text import LabelWithText
 
