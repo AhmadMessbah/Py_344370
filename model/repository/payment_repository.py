@@ -35,7 +35,8 @@ class PaymentRepository:
 
     def find_by_id(self, id):
         payment = transaction_manager(
-            "select * from payments where id=?",
+            "select * from payments where id like ?",
+            [id]
         )
         payment = Payment(*payment)
         return payment

@@ -42,7 +42,10 @@ class PaymentController:
 
     def find_by_id(self, id):
         try:
-            return True, self.service.find_by_id(id)
+            payment= self.service.find_by_id(id)
+            if not payment:
+                raise ValueError("payment not found!!!")
+            return True, payment
         except Exception as e:
             return False, f"Error !!! {e}"
 

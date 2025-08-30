@@ -40,9 +40,14 @@ class PaymentView:
             self.payment_type.set(payment.payment_type)
             self.description.set(payment.description)
 
-    def search(self, event):
-        status, payment_list = (self.payment_controller.find_by_id(self.search_id.get()) and
-                                self.payment_controller.find_by_payment_type(self.search_payment_type.get()))
+
+    def search_by_payment_type(self, event):
+        status,payment_list=self.payment_controller.find_by_payment_type(self.search_payment_type.get())
+        if status:
+            self.show_data_on_table(payment_list)
+    #todo:az ostad beporsam
+    def search_id(self, event):
+        status, payment_list = self.payment_controller.find_by_id(self.search_by_id.get())
         if status:
             self.show_data_on_table(payment_list)
 
@@ -78,7 +83,7 @@ class PaymentView:
         self.payment_controller = PaymentController()
         self.win = Tk()
         self.win.title("Payment Profile")
-        self.win.geometry("880x400")
+        self.win.geometry("940x440")
 
         self.id = IntVar()
         LabelWithText(self.win, "Id", self.id, 40, 20)
@@ -101,13 +106,13 @@ class PaymentView:
         self.description = StringVar()
         LabelWithText(self.win, "Description", self.description, 40, 260)
 
-        self.search_id = IntVar()
-        LabelWithText(self.win, "Search Id", self.search_id, 250, 20).text.bind("<KeyRelease>", self.search)
+        self.search_by_id = StringVar()
+        LabelWithText(self.win, "Search ID", self.search_by_id, 250, 20).text.bind("<KeyRelease>", self.search_id)
 
         self.search_payment_type = StringVar()
-        LabelWithText(self.win, "Search Type", self.search_payment_type, 500, 20).text.bind("<KeyRelease>", self.search)
+        LabelWithText(self.win, "Search Type", self.search_payment_type, 500, 20).text.bind("<KeyRelease>", self.search_by_payment_type)
 
-        self.table = ttk.Treeview(self.win, columns=[1, 2, 3, 4, 5, 6, 7], show="headings")
+        self.table = ttk.Treeview(self.win, columns=[1, 2, 3, 4, 5, 6, 7],height=14, show="headings")
         self.table.heading(1, text="Id")
         self.table.heading(2, text="Person Id")
         self.table.heading(3, text="Title")
