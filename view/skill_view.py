@@ -48,7 +48,7 @@ class SkillView:
 
     def save_click(self):
         # todo:از استاد بپرسم
-        status, message = self.skill_controller.save(self.person_id.get(), self.title.get(), self.institute.get(),self.duration.get(),self.register_date.get(),self.score.set())
+        status, message = self.skill_controller.save(self.person_id.get(), self.title.get(), self.institute.get(),self.duration.get(),self.register_date.get(),self.score.get())
         if status:
             msg.showinfo("Saved", f"{message} Saved")
             self.reset_form()
@@ -87,7 +87,7 @@ class SkillView:
         LabelWithText(self.win, "Id", self.id, 20, 20, "readonly")
 
         # person id
-        self.person_id = IntVar()
+        self.person_id = StringVar()
         LabelWithText(self.win, "Person id", self.person_id, 20, 60)
 
         # title
@@ -116,7 +116,7 @@ class SkillView:
 
         # search institute
         self.search_institute = StringVar()
-        LabelWithText(self.win, "Search institute", self.search_institute, 550, 20).text.bind("<KeyRelease>",self.search)
+        LabelWithText(self.win, "SearchInstitute", self.search_institute, 550, 20).text.bind("<KeyRelease>",self.search)
 
         #table
         self.table = ttk.Treeview(self.win, height=14, columns=[1, 2, 3, 4, 5, 6, 7], show="headings")
