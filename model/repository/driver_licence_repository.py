@@ -38,7 +38,7 @@ class DriverLicenceRepository:
     def find_by_serial(self,serial):
         driver_licence = transaction_manager(
             " select * from driver_licences where serial like ?",
-            [serial]
+            [serial + "%"]
         )
         driver_licence = DriverLicence(*driver_licence)
         return driver_licence
