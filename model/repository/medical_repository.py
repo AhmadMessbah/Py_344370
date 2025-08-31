@@ -1,5 +1,6 @@
 from model.repository.database_manager import transaction_manager
 import sqlite3
+from model.entity.medical import Medical
 
 
 class MedicalRepository:
@@ -19,22 +20,28 @@ class MedicalRepository:
 
     def remove(self, id):
         return transaction_manager(
-            "delete from medicals where id=?", [id]
+            "delete from medicals where id=?", [id],
+            commit=True
         )
 
     def find_all(self):
-        return transaction_manager(
+        medical_list = transaction_manager(
             "select * from medicals"
         )
+        medical_list = list(map(lambda medical:Medical(*medical),medical_list))
+        return medical_list
 
     def find_by_id(self, id):
-        return transaction_manager(
+        medical = transaction_manager(
             "select * from medicals where id = ? ",
-            [id]
-        )
+            [id])
+        medical = Medical(*medical)
+        return medical
 
-    def find_by_name_and_family(doctor):
-        return transaction_manager(
-            "select * from medicals where doctor like ?",
-            [doctor]
-        )
+
+    def find_by_person_id(person_id):
+        medical_list = transaction_manager(
+            "select * from medicals where person_id like ?",
+            [person_id] )
+        medidal_list = list(map(lambda medical:Medical(*medical),medical_list))
+        return medical_list

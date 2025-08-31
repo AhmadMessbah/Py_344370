@@ -1,3 +1,7 @@
-from view.lesson_view import LessonView
+from controller.lesson_controller import LessonController
 
-ui=PersonView()
+
+lesson_controller = LessonController()
+
+
+print(lesson_controller.save("8","match","2137","rezaie","7","309"))

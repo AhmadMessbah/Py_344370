@@ -41,10 +41,16 @@ class MedicalController:
 
     def find_by_id(self,id):
         try:
-            return self.service.find_by_id(id)
+            user = self.service.find_by_id(id)
+            if not user:
+                raise ValueError("کاربر مورد نظر یافت نشد!!")
+            return True,user
 
         except Exception as e:
             return False, f"Error : {e}"
 
-    def find_by_name_and_family(self,name,family):
-        return True,self .service.find_by_name_and_family(name, family)
+    def find_by_person_id(self,person_id):
+        try:
+            return True,self .service.find_by_person_id(person_id)
+        except Exception as e:
+            return False, f"Error: {e}"
