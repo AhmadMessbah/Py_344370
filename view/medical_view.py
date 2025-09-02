@@ -10,15 +10,15 @@ class MedicalView:
 # 6
     def reset_form(self):
         self.id.set(0)
-        self.person_id.set(0)
+        self.person_id.set("")
         self.disease.set("")
         self.medicine.set("")
         self.doctor.set("")
         self.visit_date.set("")
         self.status.set("")
         status,medical_list = self.medical_controller.find_all()
-
-
+        if status :
+            self.show_data_on_table(medical_list)
 
 
     def show_data_on_table(self,medical_list):
@@ -32,6 +32,7 @@ class MedicalView:
         status,message=self.medical_controller.save(self.person_id.get(),self.disease.get(),self.medicine.get(),self.doctor.get(),self.visit_date.get(),self.status.get())
         if status:
             messagebox.showinfo("Saved",f"{message} Saved")
+            self.reset_form()
         else:
             messagebox.showerror("Error",message)
 
@@ -40,6 +41,7 @@ class MedicalView:
         status,message = self.medical_controller.edit(self.person_id.get(),self.disease.get(),self.medicine.get(),self.doctor.get(),self.visit_date.get(),self.status.get())
         if status:
             messagebox.showinfo("Edited", f"{message} Edited")
+            self.reset_form()
         else:
             messagebox.showerror("Error", message)
 
@@ -76,8 +78,6 @@ class MedicalView:
 
     def __init__(self):
 
-
-    # 0
         win = Tk()
         # geometry-title
         win.title("Medical")
