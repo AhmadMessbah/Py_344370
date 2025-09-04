@@ -1,11 +1,10 @@
 from tkinter import *
 import tkinter.messagebox as msg
-from tkinter import ttk
 
 from controller.payment_controller import PaymentController
 from model.entity.payment import Payment
 from view.component.label_with_text import LabelWithText
-
+from view.component.table import Table
 
 class PaymentView:
     def reset_form(self):
@@ -18,20 +17,12 @@ class PaymentView:
         self.description.set("")
         status, payment_list = self.payment_controller.find_all()
         if status:
-            self.show_data_on_table(payment_list)
+            self.table.refresh_table(payment_list)
 
-    def show_data_on_table(self, payment_list):
-        for item in self.table.get_children():
-            self.table.delete(item)
 
-        if payment_list:
-            for payment in payment_list:
-                self.table.insert("", END, values=payment.to_tuple())
 
-    def select_payment(self, event):
-        select_payment = self.table.item(self.table.focus())["values"]
-        if select_payment:
-            payment = Payment(*select_payment)
+    def select_payment(self, selected_payment):
+            payment = Payment(*selected_payment)
             self.id.set(payment.id)
             self.person_id.set(payment.person_id)
             self.title.set(payment.title)
@@ -44,12 +35,12 @@ class PaymentView:
     def search_by_payment_type(self, event):
         status,payment_list=self.payment_controller.find_by_payment_type(self.search_payment_type.get())
         if status:
-            self.show_data_on_table(payment_list)
-    #todo:az ostad beporsam
+            self.table.refresh_table(payment_list)
+
     def search_id(self, event):
         status, payment_list = self.payment_controller.find_by_id(self.search_by_id.get())
         if status:
-            self.show_data_on_table(payment_list)
+            self.table.refresh_table(payment_list)
 
     def save_click(self):
         status, message = self.payment_controller.save(self.person_id.get(), self.title.get(),
@@ -86,7 +77,7 @@ class PaymentView:
         self.win.geometry("940x440")
 
         self.id = IntVar()
-        LabelWithText(self.win, "Id", self.id, 40, 20)
+        LabelWithText(self.win, "Id", self.id, 40, 20, state="readonly")
 
         self.person_id = IntVar()
         LabelWithText(self.win, "Person Id", self.person_id, 40, 60)
@@ -112,25 +103,14 @@ class PaymentView:
         self.search_payment_type = StringVar()
         LabelWithText(self.win, "Search Type", self.search_payment_type, 500, 20).text.bind("<KeyRelease>", self.search_by_payment_type)
 
-        self.table = ttk.Treeview(self.win, columns=[1, 2, 3, 4, 5, 6, 7],height=14, show="headings")
-        self.table.heading(1, text="Id")
-        self.table.heading(2, text="Person Id")
-        self.table.heading(3, text="Title")
-        self.table.heading(4, text="Amount")
-        self.table.heading(5, text="Pay Date")
-        self.table.heading(6, text="Payment Type")
-        self.table.heading(7, text="Description")
+        self.table=Table(
+            self.win,
+            ["Id","Person Id","Title","Amount","Pay Date","Payment Type","Description"],
+            [70,70,110,70,70,110,110],
+            250,60,
+            self.select_payment
+        )
 
-        self.table.column(1, width=70)
-        self.table.column(2, width=70)
-        self.table.column(3, width=110)
-        self.table.column(4, width=70)
-        self.table.column(5, width=70)
-        self.table.column(6, width=110)
-        self.table.column(7, width=110)
-
-        self.table.bind("<<TreeviewSelect>>", self.select_payment)
-        self.table.place(x=250, y=60)
 
         Button(self.win, text="New Payment", width=23, command=self.reset_form).place(x=40, y=300)
         Button(self.win, text="Save", width=6, command=self.save_click).place(x=40, y=340)
