@@ -31,8 +31,11 @@ class DriverLicenceRepository:
             " select * from driver_licences where id = ?",
             [id]
         )
-        driver_licence = DriverLicence(*driver_licence)
-        return driver_licence
+        if driver_licence:
+            driver_licence = DriverLicence(*driver_licence[0])
+            return driver_licence
+        else:
+            raise ValueError("id not found")
 
 
     def find_by_serial(self,serial):
@@ -40,13 +43,19 @@ class DriverLicenceRepository:
             " select * from driver_licences where serial like ?",
             [serial + "%"]
         )
-        driver_licence = DriverLicence(*driver_licence)
-        return driver_licence
+        if driver_licence:
+            driver_licence = DriverLicence(*driver_licence[0])
+            return driver_licence
+        else:
+            raise ValueError("serial not found")
 
 
     def find_all(self):
         driver_licence_list = transaction_manager(
             " select * from driver_licences "
         )
-        driver_licence_list = list(map(lambda driver_licence : DriverLicence(*driver_licence), driver_licence_list))
-        return driver_licence_list
+        if driver_licence_list:
+            driver_licence_list = list(map(lambda driver_licence : DriverLicence(*driver_licence), driver_licence_list))
+            return driver_licence_list
+        else:
+            raise ValueError("driver licence list out of range")
