@@ -5,6 +5,7 @@ from tkinter import ttk
 from controller.skill_controller import SkillController
 from model.entity.skill import Skill
 from view.component.label_with_text import LabelWithText
+from view.component.table import Table
 
 
 class SkillView:
@@ -18,33 +19,23 @@ class SkillView:
         self.score.set(0)
         status, skill_list= self.skill_controller.find_all()
         if status:
-            self.show_data_on_table(skill_list)
+            self.table.refresh_table(skill_list)
 
-    def show_data_on_table(self, skill_list):
-        for item in self.table.get_children():
-            self.table.delete(item)
-
-        if skill_list:
-            for skill in skill_list:
-                self.table.insert("", END, values=skill.to_tuple())
-
-    def select_skill(self, event):
-        selected_skill = self.table.item(self.table.focus())["values"]
-        if selected_skill:
-            skill = Skill(*selected_skill)
-            self.id.set(skill.id)
-            self.person_id.set(skill.person_id)
-            self.title.set(skill.title)
-            self.institute.set(skill.institute)
-            self.duration.set(skill.duration)
-            self.register_date.set(skill.register_date)
-            self.score.set(skill.score)
+    def select_skill(self, selected_skill):
+        skill = Skill(*selected_skill)
+        self.id.set(skill.id)
+        self.person_id.set(skill.person_id)
+        self.title.set(skill.title)
+        self.institute.set(skill.institute)
+        self.duration.set(skill.duration)
+        self.register_date.set(skill.register_date)
+        self.score.set(skill.score)
 
     def search(self, event):
         status, skill_list = self.skill_controller.find_by_title_and_institute(self.search_title.get(), self.search_institute.get())
 
         if status:
-            self.show_data_on_table(skill_list)
+            self.table.refresh_table(skill_list)
 
     def save_click(self):
         # todo:از استاد بپرسم
@@ -119,26 +110,13 @@ class SkillView:
         LabelWithText(self.win, "SearchInstitute", self.search_institute, 550, 20).text.bind("<KeyRelease>",self.search)
 
         #table
-        self.table = ttk.Treeview(self.win, height=14, columns=[1, 2, 3, 4, 5, 6, 7], show="headings")
-        self.table.heading(1, text="Id ")
-        self.table.heading(2, text="Person id")
-        self.table.heading(3, text="Title")
-        self.table.heading(4, text="Institute")
-        self.table.heading(5, text="Duration")
-        self.table.heading(6, text="Register date")
-        self.table.heading(7, text="Score")
-
-        self.table.column(1, width=70)
-        self.table.column(2, width=100)
-        self.table.column(3, width=100)
-        self.table.column(4, width=80)
-        self.table.column(5, width=80)
-        self.table.column(6, width=100)
-        self.table.column(7, width=80)
-
-        self.table.bind("<<TreeviewSelect>>", self.select_skill)
-        self.table.place(x=250, y=60)
-
+        self.table = Table(
+            self.win,
+            ["Id", "Person Id", "Title", "Institute", "Duration", "Register Date", "Score"],
+            [70, 100, 100, 80, 80, 100, 80],
+            250, 60,
+            self.select_skill
+        )
 
         # Buttons (Clear-Save-Edit-Remove)
         Button(self.win, text="New Skill", command=self.reset_form,width=28).place(x=20,y=300)
@@ -147,6 +125,7 @@ class SkillView:
         Button(self.win, text="Remove", command=self.delete_click, width=7).place(x=170,y=340)
 
         self.reset_form()
+
         self.win.mainloop()
 
         # self.win.protocol("WM_DELETE_WINDOW",  self.close_window)

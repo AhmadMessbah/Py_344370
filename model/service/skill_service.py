@@ -5,33 +5,13 @@ class SkillService:
         self.repo = SkillRepository()
 
     def save(self, skill):
-        if skill.score<=12:
-            raise ValueError("نمره زیر 12 مناسب ثبت نام نیست")
-
-        if skill.score>20:
-            raise ValueError("نمره بالای 20 مناسب ثبت نام نیست")
-
         return self.repo.save(skill)
 
     def edit(self, skill):
-        skill=self.repo.find_by_id(id)
-        if skill:
-            if skill.score<=12:
-                raise ValueError("نمره زیر 12 مناسب ثبت نام نیست")
-
-            if skill.score > 20:
-                raise ValueError("نمره بالای 20 مناسب ثبت نام نیست")
-
-            return self.repo.edit(skill)
-        else:
-            raise ValueError("فردی با چنین کدی پیدا نشد !!!")
+        return self.repo.edit(skill)
 
     def delete(self,id):
-        skill = self.repo.find_by_id(id)
-        if skill:
-            return self.repo.delete(id)
-        else:
-            raise ValueError("فردی با چنین کدی پیدا نشد !!!")
+        return self.repo.delete(id)
 
     def find_all(self):
         return self.repo.find_all()
