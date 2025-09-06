@@ -1,6 +1,5 @@
 import re
 from datetime import datetime
-from persiantools.jdatetime import JalaliDate
 
 class Education:
     def __init__(self, id: int, person_id: str, university: str, grade: str, average: int, start_date: str,
@@ -61,7 +60,7 @@ class Education:
 
     @property
     def start_date(self):
-        return JalaliDate(self._start_date)
+        return self._start_date
 
     @start_date.setter
     def start_date(self, value):

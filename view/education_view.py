@@ -1,3 +1,4 @@
+from time import strptime
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
@@ -5,6 +6,8 @@ from tkinter import ttk
 from controller.education_controller import EducationController
 from model.entity.education import Education
 from view.component.label_with_text import LabelWithText
+from persiantools.jdatetime import JalaliDate
+from datetime import datetime
 
 # id, person_id, university, grade, average, start_date, end_date
 
@@ -32,6 +35,12 @@ class EducationView:
         self.average.set(education.average)
         self.start_date.set(education.start_date)
         self.end_date.set(education.end_date)
+
+        start_date_str = self.start_date.get()
+        start_date_jalali = JalaliDate.strptime(start_date_str, "%Y-%m-%d")
+
+        end_date_str = self.end_date.get()
+        end_date_jalali = JalaliDate.strptime(end_date_str, "%Y-%m-%d")
 
 
     def search_person_id(self, event):
