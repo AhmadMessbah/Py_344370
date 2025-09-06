@@ -10,19 +10,11 @@ class DriverLicenceService:
 
 
     def edit(self,driver_licence):
-        #driver_licence = self.driver_licence_repo.find_by_id(driver_licence)
-        #if driver_licence :
-            return self.driver_licence_repo.edit(driver_licence)
-        #else :
-            #raise ValueError ("id not found to edit !")
+        return self.driver_licence_repo.edit(driver_licence)
 
 
     def delete(self,id):
-        #driver_licence = self.driver_licence_repo.find_by_id(id)
-        #if driver_licence :
-            return self.driver_licence_repo.delete(id)
-        #else :
-            #raise ValueError ("id not found to delete !")
+        return self.driver_licence_repo.delete(id)
 
 
     def find_by_id(self,id):

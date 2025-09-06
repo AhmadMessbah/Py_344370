@@ -70,7 +70,7 @@ class DriverLicence:
 
     @registered_date.setter
     def registered_date(self, value):
-        if date_validator(value):
+        if date_validation(value):
             self._registered_date = value
 
         else:
@@ -84,7 +84,7 @@ class DriverLicence:
 
     @expired_date.setter
     def expired_date(self, value):
-        if date_validator(value):
+        if date_validation(value):
             self._expired_date = value
 
         else:
