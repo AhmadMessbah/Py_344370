@@ -1,5 +1,4 @@
 from tkinter import *
-import tkinter.ttk as ttk
 from tkinter import messagebox as msg
 
 from controller.driver_licence_controller import  *

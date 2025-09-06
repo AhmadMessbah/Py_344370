@@ -1,5 +1,5 @@
 import re
-from datetime import time,datetime
+from model.tools.date_validation import *
 
 class DriverLicence:
     def __init__(self, id, person_id, serial, licence_type, city, registered_date, expired_date):
@@ -20,6 +20,7 @@ class DriverLicence:
     def person_id(self, value):
         if re.match(r"^[a-zA-Z0-9\s]{3,30}$", value):
             self._person_id = value
+
         else:
             raise ValueError("!! invalid Person id !!")
 
@@ -32,6 +33,7 @@ class DriverLicence:
     def serial(self, value):
         if re.match(r"^[a-zA-Z0-9\-\s]{3,30}$", value):
             self._serial = value
+
         else:
             raise ValueError("!! invalid Serial !!")
 
@@ -44,6 +46,7 @@ class DriverLicence:
     def licence_type(self, value):
         if re.match(r"^[a-zA-Z0-9\-\s]{3,30}$", value):
             self._licence_type = value
+
         else:
             raise ValueError("!! invalid licence type !!")
 
@@ -56,6 +59,7 @@ class DriverLicence:
     def city(self, value):
         if re.match(r"^[a-zA-Z0-9\s]{3,30}$", value):
             self._city = value
+
         else:
             raise ValueError("!! invalid city name !!")
 
@@ -66,17 +70,25 @@ class DriverLicence:
 
     @registered_date.setter
     def registered_date(self, value):
-        self._registered_date = value
+        if date_validator(value):
+            self._registered_date = value
+
+        else:
+            raise ValueError("!! invalid registered date !!")
 
 
     @property
     def expired_date(self):
-        return
+        return self._expired_date
 
 
     @expired_date.setter
     def expired_date(self, value):
-        self._expired_date = value
+        if date_validator(value):
+            self._expired_date = value
+
+        else:
+            raise ValueError("!! invalid expired date !!")
 
 
     def __repr__(self):
