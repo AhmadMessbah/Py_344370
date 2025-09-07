@@ -67,11 +67,11 @@ class Skill:
 
     @register_date.setter
     def register_date(self, value):
+        value = value.replace("/", "-").strip()
         date = datetime.strptime(value, "%Y-%m-%d").date()
         if date > datetime.now().date():
             raise ValueError("The register date is not valid.")
         else:
-            value.replace("/", "-").strip()
             self._register_date = date
 
     @property

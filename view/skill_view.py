@@ -38,7 +38,6 @@ class SkillView:
             self.table.refresh_table(skill_list)
 
     def save_click(self):
-        # todo:از استاد بپرسم
         status, message = self.skill_controller.save(self.person_id.get(), self.title.get(), self.institute.get(),self.duration.get(),self.register_date.get(),self.score.get())
         if status:
             msg.showinfo("Saved", f"{message} Saved")
@@ -103,11 +102,11 @@ class SkillView:
 
         # search title
         self.search_title = StringVar()
-        LabelWithText(self.win, "Search title", self.search_title, 250, 20).text.bind("<KeyRelease>",self.search)
+        LabelWithText(self.win, "Search Title", self.search_title, 250, 20).text.bind("<KeyRelease>",self.search)
 
         # search institute
         self.search_institute = StringVar()
-        LabelWithText(self.win, "SearchInstitute", self.search_institute, 550, 20).text.bind("<KeyRelease>",self.search)
+        LabelWithText(self.win, "Search Institute", self.search_institute, 550, 20).text.bind("<KeyRelease>",self.search)
 
         #table
         self.table = Table(
