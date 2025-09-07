@@ -1,16 +1,16 @@
-print("App Started")
+from model.tools.logging import Logger
+
+Logger.info("App Started")
 
 from model.repository.database_manager import create_database
 create_database()
-print("Database Created")
+Logger.info("Database Created")
 
 
 
-#import test.person_test
-from view.person_view import PersonView
+import test.person_test
+# from view.person_view import PersonView
+# ui = PersonView()
 
 
-ui = PersonView()
-
-print("by")
 
