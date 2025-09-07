@@ -6,6 +6,7 @@ class Marriage:
         self.family = family
         self.marriage_date = marriage_date
         self.childes = childes
+        self.is_alive= is_alive
 
     def __repr__(self):
         return f"{self.__dict__}"

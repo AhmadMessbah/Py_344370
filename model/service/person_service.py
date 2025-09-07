@@ -1,9 +1,11 @@
-from model.repository.person_repository import PersonRepository
+from model.repository import *
+from model.entity.person import Person
+
 
 
 class PersonService:
     def __init__(self):
-        self.repo = PersonRepository()
+        self.repo = Repository(Person)
 
     def save(self, person):
         return self.repo.save(person)
@@ -20,5 +22,8 @@ class PersonService:
     def find_by_id(self, id):
         return self.repo.find_by_id(id)
 
-    def find_by_name_and_family(self, name,family):
-        return self.repo.find_by_name_and_family(name,family)
+    def find_by_family(self,family):
+        return self.repo.find_by(Person.family.like(family+"%"))
+
+    def find_by_name_and_family(self, name, family):
+        return self.repo.find_by(and_(Person.name == name, Person.family == family))
