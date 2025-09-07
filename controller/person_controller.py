@@ -27,7 +27,6 @@ class PersonController:
             else:
                 raise ValueError("Invalid Name/Family")
         except Exception as e:
-            e.with_traceback()
             return False, f"Error !!! {e}"
 
     def delete(self, id):

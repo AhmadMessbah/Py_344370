@@ -1,1 +1,1 @@
-python app.py
+streamlit run web_simple_sample.py --server.address 192.168.39.100 --server.port 80
