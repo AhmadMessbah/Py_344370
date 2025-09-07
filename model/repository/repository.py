@@ -1,12 +1,12 @@
 from model.repository import *
+from model.tools.logging import Logger
 
-connection_string = "sqlite:///class_project.db"
+connection_string = "sqlite:///model/repository/class_project.db"
 
 # چک کن آیا دیتا بیس قبلا ساخته نشده است؟
 if not database_exists(connection_string):
     # دیتابیس را بساز
     create_database(connection_string)
-
 
 # روشی برای مدیریت اتصالات به دیتابیس
 engine = create_engine(connection_string, echo=True)
@@ -17,6 +17,8 @@ Session = sessionmaker(bind=engine)
 # همه ی کلاسهایی که از Base به ارث برده بودند را بیاب و برایشان جدول دیتابیس بساز
 base = Base()
 base.metadata.create_all(bind=engine)
+Logger.info("Database Created")
+
 
 class Repository:
     def __init__(self, class_name):
@@ -27,14 +29,14 @@ class Repository:
         session.add(entity)
         session.commit()
         session.refresh(entity)
-
+        return entity
 
     def edit(self, entity):
         session = Session()
-        session.merge(entity)
+        entity = session.merge(entity)
         session.commit()
         session.refresh(entity)
-
+        return entity
 
     # def delete(self, entity):
     #     session = Session()
@@ -47,17 +49,15 @@ class Repository:
         entity = session.get(self.class_name, entity_id)
         session.delete(entity)
         session.commit()
+        return entity
 
-
-    def find_all(self ):
+    def find_all(self):
         session = Session()
-        person_list = session.query(self.class_name).all()
-        return person_list
+        return session.query(self.class_name).all()
 
     def find_by_id(self, entity_id):
         session = Session()
         return session.get(self.class_name, entity_id)
-
 
     def find_by(self, filter):
         session = Session()

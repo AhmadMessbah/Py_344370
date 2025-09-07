@@ -11,7 +11,7 @@ class PersonController:
     def save(self, name, family, age):
         try:
             if re.match(r"^[a-zA-Z\s]{3,30}$", name) and re.match(r"^[a-zA-Z\s]{3,30}$", family):
-                person = Person(None, name, family, age)
+                person = Person( name, family, age)
                 return True, self.service.save(person)
             else:
                 raise ValueError("Invalid Name/Family")
@@ -21,11 +21,13 @@ class PersonController:
     def edit(self, id, name, family, age):
         try:
             if re.match(r"^[a-zA-Z\s]{3,30}$", name) and re.match(r"^[a-zA-Z\s]{3,30}$", family):
-                person = Person(id, name, family, age)
+                person = Person(name, family, age)
+                person.id = id
                 return True, self.service.edit(person)
             else:
                 raise ValueError("Invalid Name/Family")
         except Exception as e:
+            e.with_traceback()
             return False, f"Error !!! {e}"
 
     def delete(self, id):
