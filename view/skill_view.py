@@ -23,6 +23,7 @@ class SkillView:
 
     def select_skill(self, selected_skill):
         skill = Skill(*selected_skill)
+
         self.id.set(skill.id)
         self.person_id.set(skill.person_id)
         self.title.set(skill.title)

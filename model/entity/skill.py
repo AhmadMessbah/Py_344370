@@ -18,10 +18,6 @@ class Skill:
     @id.setter
     def id(self, value):
         self._id = value
-        # if not value:
-        #     raise ValueError("The desired person was not found.")
-        # else:
-        #     self._id = value
 
     @property
     def person_id(self):
