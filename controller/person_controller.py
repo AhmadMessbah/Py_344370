@@ -2,32 +2,23 @@ import re
 
 from model.entity.person import Person
 from model.service.person_service import PersonService
+from model.tools.decorators import exception_handling
 
 
 class PersonController:
     def __init__(self):
         self.service = PersonService()
 
+    @exception_handling
     def save(self, name, family, age):
-        try:
-            if re.match(r"^[a-zA-Z\s]{3,30}$", name) and re.match(r"^[a-zA-Z\s]{3,30}$", family):
-                person = Person( name, family, age)
-                return True, self.service.save(person)
-            else:
-                raise ValueError("Invalid Name/Family")
-        except Exception as e:
-            return False, f"Error !!! {e}"
+        person = Person(name, family, age)
+        return self.service.save(person)
 
+    @exception_handling
     def edit(self, id, name, family, age):
-        try:
-            if re.match(r"^[a-zA-Z\s]{3,30}$", name) and re.match(r"^[a-zA-Z\s]{3,30}$", family):
-                person = Person(name, family, age)
-                person.id = id
-                return True, self.service.edit(person)
-            else:
-                raise ValueError("Invalid Name/Family")
-        except Exception as e:
-            return False, f"Error !!! {e}"
+        person = Person(name, family, age)
+        person.id = id
+        return self.service.edit(person)
 
     def delete(self, id):
         try:

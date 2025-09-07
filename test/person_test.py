@@ -16,3 +16,6 @@ person_controller = PersonController()
 
 
 # print(person_controller.find_by_family("a"))
+
+
+print(person_controller.find_all())

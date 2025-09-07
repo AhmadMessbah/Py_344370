@@ -28,7 +28,8 @@ class PersonView:
     def select_person(self, event):
         selected_person = self.table.item(self.table.focus())["values"]
         if selected_person:
-            person = Person(*selected_person)
+            person = Person(*selected_person[1:])
+            person.id = selected_person[0]
             self.id.set(person.id)
             self.name.set(person.name)
             self.family.set(person.family)

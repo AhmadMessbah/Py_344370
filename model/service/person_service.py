@@ -26,4 +26,4 @@ class PersonService:
         return self.repo.find_by(Person.family.like(family+"%"))
 
     def find_by_name_and_family(self, name, family):
-        return self.repo.find_by(and_(Person.name == name, Person.family == family))
+        return self.repo.find_by(and_(Person.name.like(name+"%"), Person.family.like(family+"%")))

@@ -6,4 +6,4 @@ class Base(DeclarativeBase):
         return str({c.name: getattr(self, c.name) for c in self.__table__.columns})
 
     def to_tuple(self):
-        return tuple(self.__dict__.values())
+        return tuple({c.name: getattr(self, c.name) for c in self.__table__.columns}.values())

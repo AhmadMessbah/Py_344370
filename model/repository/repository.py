@@ -9,7 +9,7 @@ if not database_exists(connection_string):
     create_database(connection_string)
 
 # روشی برای مدیریت اتصالات به دیتابیس
-engine = create_engine(connection_string, echo=True)
+engine = create_engine(connection_string, echo=False)
 
 # مسئول اجرای دستورات در دیتابیس
 Session = sessionmaker(bind=engine)
