@@ -75,7 +75,7 @@ class SkillView:
 
         # id
         self.id = IntVar()
-        LabelWithText(self.win, "Id", self.id, 20, 20, "readonly")
+        LabelWithText(self.win, "Id", self.id, 20, 20, state="readonly")
 
         # person id
         self.person_id = StringVar()
@@ -118,7 +118,7 @@ class SkillView:
             self.select_skill
         )
 
-        # Buttons (Clear-Save-Edit-Remove)
+        # Buttons (Reset-Save-Edit-Remove)
         Button(self.win, text="New Skill", command=self.reset_form,width=28).place(x=20,y=300)
         Button(self.win, text="Save", command=self.save_click, width=7).place(x=20,y=340)
         Button(self.win, text="Edit", command=self.edit_click, width=7).place(x=95,y=340)

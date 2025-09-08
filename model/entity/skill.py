@@ -1,9 +1,20 @@
 import re
 from datetime import datetime
+from model.entity.base import Base
+from sqlalchemy import Column,Integer,String
 
-class Skill:
-    def __init__(self,id, person_id, title, institute, duration, register_date, score):
-        self.id = id
+class Skill(Base):
+    __tablename__ = "skill"
+
+    id=Column(Integer,primary_key=True,autoincrement=True)
+    person_id=Column(String(30),nullable=False,unique=True)
+    title=Column(String(30),nullable=False)
+    institute=Column(String(30),nullable=False)
+    duration=Column(String(30),nullable=False)
+    register_date=Column(String(30),nullable=False)
+    score=Column(Integer,nullable=False)
+
+    def __init__(self, person_id, title, institute, duration, register_date, score):
         self.person_id = person_id
         self.title = title
         self.institute = institute

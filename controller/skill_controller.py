@@ -9,12 +9,13 @@ class SkillController:
 
     @exception_handling
     def save(self,person_id,title,institute,duration,register_date,score):
-        skill = Skill(None,person_id,title,institute,duration,register_date,score)
+        skill = Skill(person_id,title,institute,duration,register_date,score)
         return self.service.save(skill)
 
     @exception_handling
     def edit(self,id,person_id, title, institute,duration,register_date,score):
-        skill = Skill(id,person_id,title,institute,duration,register_date,score)
+        skill = Skill(person_id,title,institute,duration,register_date,score)
+        skill.id=id
         return self.service.edit(skill)
 
     @exception_handling

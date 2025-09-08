@@ -1,8 +1,9 @@
-from model.repository.skill_repository import  SkillRepository
+from model.repository import  *
+from model.entity.skill import Skill
 
 class SkillService:
     def __init__(self):
-        self.repo = SkillRepository()
+        self.repo = Repository(Skill)
 
     def save(self, skill):
         return self.repo.save(skill)
@@ -20,4 +21,4 @@ class SkillService:
         return self.repo.find_by_id(id)
 
     def find_by_title_and_institute(self,title,institute):
-        return self.repo.find_by_title_and_institute(title,institute)
+        return self.repo.find_by(and_(Skill.title.like(title+"%"),Skill.institute.like(institute+"%")))
