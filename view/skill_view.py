@@ -22,7 +22,9 @@ class SkillView:
             self.table.refresh_table(skill_list)
 
     def select_skill(self, selected_skill):
-        skill = Skill(*selected_skill)
+        skill = Skill(*selected_skill[1:])
+
+        skill.id = selected_skill[0]
 
         self.id.set(skill.id)
         self.person_id.set(skill.person_id)
