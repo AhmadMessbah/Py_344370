@@ -21,15 +21,16 @@ class PaymentView:
 
 
 
-    def select_payment(self, selected_payment):
-            payment = Payment(*selected_payment)
-            self.id.set(payment.id)
-            self.person_id.set(payment.person_id)
-            self.title.set(payment.title)
-            self.amount.set(payment.amount)
-            self.pay_date.set(payment.pay_date)
-            self.payment_type.set(payment.payment_type)
-            self.description.set(payment.description)
+    def select_payment(self, event):
+        payment = Payment(*selected_payment[1:])
+        payment.id=selected_payment[0]
+        self.id.set(payment.id)
+        self.person_id.set(payment.person_id)
+        self.title.set(payment.title)
+        self.amount.set(payment.amount)
+        self.pay_date.set(payment.pay_date)
+        self.payment_type.set(payment.payment_type)
+        self.description.set(payment.description)
 
 
     def search_by_payment_type(self, event):
@@ -97,7 +98,7 @@ class PaymentView:
         self.description = StringVar()
         LabelWithText(self.win, "Description", self.description, 40, 260)
 
-        self.search_by_id = StringVar()
+        self.search_by_id = IntVar()
         LabelWithText(self.win, "Search ID", self.search_by_id, 250, 20).text.bind("<KeyRelease>", self.search_id)
 
         self.search_payment_type = StringVar()

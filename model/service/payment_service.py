@@ -1,9 +1,10 @@
-from model.repository.payment_repository import PaymentRepository
+from model.repository import *
+from model.entity.payment import Payment
 
 
 class PaymentService:
     def __init__(self):
-        self.repo = PaymentRepository()
+        self.repo = Repository(Payment)
 
     def save(self, payment):
         return self.repo.save(payment)
@@ -22,4 +23,4 @@ class PaymentService:
         return self.repo.find_by_id(id)
 
     def find_by_payment_type(self, payment_type):
-        return self.repo.find_by_payment_type(payment_type)
+        return self.repo.find_by(Payment.payment_type.like(payment_type+"%"))

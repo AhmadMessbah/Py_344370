@@ -9,12 +9,12 @@ class PaymentController:
 
     @exception_handling
     def save(self, person_id, title, amount,pay_date, payment_type, description):
-        payment = Payment(None, person_id, title, amount,pay_date, payment_type, description)
+        payment = Payment(person_id, title, amount,pay_date, payment_type, description)
         return self.service.save(payment)
 
     @exception_handling
     def edit(self, id, person_id, title, amount,pay_date ,payment_type, description):
-        payment = Payment(id, person_id, title, amount,pay_date, payment_type, description)
+        payment = Payment( person_id, title, amount,pay_date, payment_type, description)
         return self.service.edit(payment)
 
     @exception_handling
