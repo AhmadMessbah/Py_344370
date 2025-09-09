@@ -24,7 +24,7 @@ class DriverLicenceService:
 
 
     def find_by_serial(self,serial):
-        return self.driver_licence_repo.find_by(DriverLicence).filter(DriverLicence.serial.like(serial+"%"))
+        return self.driver_licence_repo.find_by(DriverLicence).filter(DriverLicence.serial.like(serial + "%"))
 
 
     def find_all(self):

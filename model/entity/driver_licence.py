@@ -13,7 +13,7 @@ class DriverLicence(Base):
     licence_type = Column(String(30) , nullable=False )
     city = Column(String(30) , nullable=False )
     registered_date = Column(String(30) , nullable=False )
-    expired_date = Column(String(30) , nullable=False)         #Date?
+    expired_date = Column(String(30) , nullable=False)         #Date? (ask)
 
 
 
