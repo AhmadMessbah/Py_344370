@@ -1,9 +1,11 @@
-from model.repository.medical_repository import MedicalRepository
+# from model.repository.medical_repository import MedicalRepository
+from model.repository import *
+from model.entity.medical import Medical
 
 
 class MedicalService:
     def __init__(self):
-        self.repo = MedicalRepository
+        self.repo = Repository(Medical)
 
 
     def save (self,medical):
@@ -14,8 +16,8 @@ class MedicalService:
         return self.repo.edit(medical)
 
 
-    def remove(self,id):
-        return self.repo.remove(id)
+    def delete(self,id):
+        return self.repo.delete(id)
 
 
     def find_all(self):
