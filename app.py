@@ -8,3 +8,4 @@ Logger.info("App Started")
 
 from view.person_view import PersonView
 ui = PersonView()
+

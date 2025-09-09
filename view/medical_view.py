@@ -1,13 +1,14 @@
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
-from controller.medical_controller import MedicalController
+
 from model.entity.medical import Medical
+from controller.medical_controller import MedicalController
 from view.component.label_with_text import LabelWithText
+from view.component.table import Table
 
 
 class MedicalView:
-# 6
     def reset_form(self):
         self.id.set(0)
         self.person_id.set("")
@@ -77,25 +78,22 @@ class MedicalView:
 
 
     def __init__(self):
-
+        self.medical_controller = MedicalController()
         win = Tk()
-        # geometry-title
         win.title("Medical")
         win.resizable(width=False, height=False)
         win.geometry("800x360")
 
-        # 1
-        # # id
+
+        # id
         id = IntVar()
         Label(win, text="id").place(x=20, y=20)
-        # Entry(win, textvariable=id).place(x=100,y=20)
         Entry(win, textvariable=id).place(x=100, y=20)
 
         # person_id
         person_id = IntVar()
         Label(win, text="person_id").place(x=20, y=60)
         Entry(win, textvariable=person_id).place(x=100, y=60)
-        # Entry(win, textvariable=person_id).place(x=100,y=60)
 
         # disease
         disease = StringVar()
