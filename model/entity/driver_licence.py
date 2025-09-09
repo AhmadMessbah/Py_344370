@@ -1,9 +1,23 @@
 import re
 from model.tools.date_validation import *
+from model.entity.base import Base
+from sqlalchemy import *
 
-class DriverLicence:
-    def __init__(self, id, person_id, serial, licence_type, city, registered_date, expired_date):
-        self.id = id
+
+class DriverLicence(Base):
+    __tablename__ = "driver_licence"
+
+    id = Column(Integer, primary_key=True , autoincrement=True)
+    person_id = Column(String(30) , nullable=False , unique=True )
+    serial = Column(String(30) , nullable=False , unique=True )
+    licence_type = Column(String(30) , nullable=False )
+    city = Column(String(30) , nullable=False )
+    registered_date = Column(String(30) , nullable=False )
+    expired_date = Column(String(30) , nullable=False)         #Date?
+
+
+
+    def __init__(self, person_id, serial, licence_type, city, registered_date, expired_date):
         self.person_id = person_id
         self.serial = serial
         self.licence_type = licence_type
@@ -89,11 +103,3 @@ class DriverLicence:
 
         else:
             raise ValueError("!! invalid expired date !!")
-
-
-    def __repr__(self):
-        return f"{self.__dict__}"
-
-
-    def to_tuple(self):
-        return tuple((self.id, self.person_id, self.serial, self.licence_type, self.city, self.registered_date, self.expired_date))
