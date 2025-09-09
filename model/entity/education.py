@@ -1,10 +1,22 @@
+from sqlalchemy import Column, Integer, String
+from model.entity.base import Base
 import re
 from datetime import datetime
 
-class Education:
-    def __init__(self, id: int, person_id: str, university: str, grade: str, average: int, start_date: str,
+class Education(Base):
+    __tablename__ = "educations"
+
+    id = Column(Integer, primary_key=True,autoincrement=True)
+    person_id = Column(String(10), nullable=False,unique=True)
+    university = Column(String(20), nullable=False)
+    grade = Column(String(20), nullable=False)
+    average = Column(Integer)
+    start_day= Column(String(10), nullable=False)
+    end_day = Column(String(10), nullable=False)
+
+
+    def __init__(self, person_id: str, university: str, grade: str, average: int, start_date: str,
                  end_date: str):
-        self.id = id
         self.person_id = person_id
         self.university = university
         self.grade = grade

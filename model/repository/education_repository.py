@@ -1,50 +1,56 @@
+from model.entity.base import Base
 from model.entity.education import Education
-from model.repository.database_manager import transaction_manager
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy_utils import create_database, database_exists
+
+from model.repository.repository import connection_string, engine, Session, Repository
+
+connection_string = "sqlite:///./model/repository/class_project.db"
+
+if not database_exists(connection_string):
+    create_database(connection_string)
+
+engine = create_engine(connection_string, echo=True)
+session = sessionmaker(bind=engine)
+
+base = Base()
+base.metadata.create_all(bind=engine)
 
 
 class EducationRepository:
     def save(self, education):
-        transaction_manager(
-            'insert into educations (person_id ,university, grade, average, start_date, end_date) values (?,?,?,?,?,?)',
-            [education.person_id, education.university, education.grade, education.average, education.start_date,
-             education.end_date],
-            commit=True
-            )
+        session = Session()
+        session.add(education)
+        session.refresh(education)
+        session.commit()
         return education
 
     def edit(self, education):
-        transaction_manager(
-            'update educations set person_id=?, university=?, grade=?, average=?, start_date=?, end_date=? where id=?',
-            [education.person_id, education.university, education.grade, education.average,
-            education.start_date, education.end_date, education.id],
-            commit=True
-            )
+        session = Session()
+        session.merge(education)
+        session.refresh(education)
+        session.commit()
         return education
 
-    def delete(self, id):
-        transaction_manager(
-            'delete from educations where id =?',
-            [id],
-            commit=True
-            )
-        return id
+    def delete(self, education):
+        session = Session()
+        session.delete(education)
+        session.refresh(education)
+        session.commit()
+        return education
 
     def find_all(self):
-        education_list = transaction_manager(
-            'select * from educations'
-        )
-        if education_list:
-            education_list = list(map(lambda education:Education(*education),education_list))
-            return education_list
+        session = Session()
+        education_list = session.query(Education).all()
+        return education_list
 
     def find_by_id(self, id):
-        education = transaction_manager('select * from educations where id = ?', [id + "%"])
-        if education:
-            education = Education(*education[0])
-            return education
+        session = Session()
+        return session.get(Education, id)
 
     def find_by_person_id(self, person_id):
-        education_list = transaction_manager('select * from educations where person_id = ?', [person_id + "%"])
-        if education_list:
-            education_list=list(map(lambda education:Education(*education),education_list))
-            return education_list
+        session = Session()
+        return session.get(Education, person_id)
+
+education_repository = Repository(Education)

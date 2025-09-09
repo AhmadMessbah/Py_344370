@@ -1,9 +1,10 @@
-from model.repository.education_repository import EducationRepository
+from model.entity.education import Education
+from model.repository import *
 
 class EducationService:
 
     def __init__(self):
-        self.repo = EducationRepository()
+        self.repo = Repository(Education)
 
     def save(self,education):
         return self.repo.save(education)
