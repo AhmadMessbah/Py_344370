@@ -6,6 +6,7 @@ Logger.info("App Started")
 # import test.person_test
 
 
-from view.person_view import PersonView
-ui = PersonView()
+# from view.person_view import PersonView
+# ui = PersonView()
 
+print("Hello Every Body")
